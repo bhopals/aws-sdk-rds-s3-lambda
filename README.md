@@ -43,8 +43,8 @@ cdk destroy
 Once STACK is deployed, you should see TWO Lambda. Both Lambda has Public URL so
 open the Lambda URL to trigger Create/Query request.
 
-- aws-sdk-app-create-lambda (To Create S3 and MySql Instance)
-- aws-sdk-app-query-lambda (To Query S3 and MySql Instance - show all the bucket and db details)
+- aws-sdk-s3-lambda (To Create and Query S3 )
+- aws-sdk-rds-lambda (To Create and Query RDS (MySql) Instances)
 
 #### Additional Steps once RDS instance is Created
 
