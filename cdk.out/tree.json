@@ -1,0 +1,821 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "constructs.Construct",
+          "version": "10.0.112"
+        }
+      },
+      "aws-sdk-app": {
+        "id": "aws-sdk-app",
+        "path": "aws-sdk-app",
+        "children": {
+          "aws-sdk-app-public-rds-vpc": {
+            "id": "aws-sdk-app-public-rds-vpc",
+            "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "instanceTenancy": "default",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPC",
+                  "version": "2.31.1"
+                }
+              },
+              "aws-sdk-app-public-subnetSubnet1": {
+                "id": "aws-sdk-app-public-subnetSubnet1",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "availabilityZone": "us-west-2a",
+                        "cidrBlock": "10.0.0.0/24",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "aws-sdk-app-public-subnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTable87309F87"
+                        },
+                        "subnetId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTable87309F87"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.31.1"
+                }
+              },
+              "aws-sdk-app-public-subnetSubnet2": {
+                "id": "aws-sdk-app-public-subnetSubnet2",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "availabilityZone": "us-west-2b",
+                        "cidrBlock": "10.0.1.0/24",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "aws-sdk-app-public-subnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableF964B58F"
+                        },
+                        "subnetId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableF964B58F"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.31.1"
+                }
+              },
+              "aws-sdk-app-public-subnetSubnet3": {
+                "id": "aws-sdk-app-public-subnetSubnet3",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3",
+                "children": {
+                  "Subnet": {
+                    "id": "Subnet",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/Subnet",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "availabilityZone": "us-west-2c",
+                        "cidrBlock": "10.0.2.0/24",
+                        "mapPublicIpOnLaunch": true,
+                        "tags": [
+                          {
+                            "key": "aws-cdk:subnet-name",
+                            "value": "aws-sdk-app-public-subnet"
+                          },
+                          {
+                            "key": "aws-cdk:subnet-type",
+                            "value": "Public"
+                          },
+                          {
+                            "key": "Name",
+                            "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnet",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "Acl": {
+                    "id": "Acl",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/Acl",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.Resource",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "RouteTable": {
+                    "id": "RouteTable",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/RouteTable",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                      "aws:cdk:cloudformation:props": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "tags": [
+                          {
+                            "key": "Name",
+                            "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRouteTable",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "RouteTableAssociation": {
+                    "id": "RouteTableAssociation",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/RouteTableAssociation",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTable057E6675"
+                        },
+                        "subnetId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnSubnetRouteTableAssociation",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "DefaultRoute": {
+                    "id": "DefaultRoute",
+                    "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/DefaultRoute",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                      "aws:cdk:cloudformation:props": {
+                        "routeTableId": {
+                          "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTable057E6675"
+                        },
+                        "destinationCidrBlock": "0.0.0.0/0",
+                        "gatewayId": {
+                          "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_ec2.CfnRoute",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.PublicSubnet",
+                  "version": "2.31.1"
+                }
+              },
+              "IGW": {
+                "id": "IGW",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/IGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "aws-sdk-app/aws-sdk-app-public-rds-vpc"
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnInternetGateway",
+                  "version": "2.31.1"
+                }
+              },
+              "VPCGW": {
+                "id": "VPCGW",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/VPCGW",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "awssdkapppublicrdsvpc9988057D"
+                    },
+                    "internetGatewayId": {
+                      "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnVPCGatewayAttachment",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.Vpc",
+              "version": "2.31.1"
+            }
+          },
+          "aws-sdk-app-public-rds-sg": {
+            "id": "aws-sdk-app-public-rds-sg",
+            "path": "aws-sdk-app/aws-sdk-app-public-rds-sg",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "aws-sdk-app/aws-sdk-app-public-rds-sg/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroup",
+                  "aws:cdk:cloudformation:props": {
+                    "groupDescription": "aws-sdk-app/aws-sdk-app-public-rds-sg",
+                    "groupName": "aws-sdk-appPublicRdsSG",
+                    "securityGroupEgress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "description": "Allow all outbound traffic by default",
+                        "ipProtocol": "-1"
+                      }
+                    ],
+                    "securityGroupIngress": [
+                      {
+                        "cidrIp": "0.0.0.0/0",
+                        "ipProtocol": "tcp",
+                        "fromPort": 3306,
+                        "toPort": 3306,
+                        "description": "allow TCP access from anywhere"
+                      }
+                    ],
+                    "vpcId": {
+                      "Ref": "awssdkapppublicrdsvpc9988057D"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_ec2.CfnSecurityGroup",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_ec2.SecurityGroup",
+              "version": "2.31.1"
+            }
+          },
+          "aws-sdk-app-public-db": {
+            "id": "aws-sdk-app-public-db",
+            "path": "aws-sdk-app/aws-sdk-app-public-db",
+            "children": {
+              "SubnetGroup": {
+                "id": "SubnetGroup",
+                "path": "aws-sdk-app/aws-sdk-app-public-db/SubnetGroup",
+                "children": {
+                  "Default": {
+                    "id": "Default",
+                    "path": "aws-sdk-app/aws-sdk-app-public-db/SubnetGroup/Default",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::RDS::DBSubnetGroup",
+                      "aws:cdk:cloudformation:props": {
+                        "dbSubnetGroupDescription": "Subnet group for aws-sdk-app-public-db database",
+                        "subnetIds": [
+                          {
+                            "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1"
+                          },
+                          {
+                            "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D"
+                          },
+                          {
+                            "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_rds.CfnDBSubnetGroup",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.SubnetGroup",
+                  "version": "2.31.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "aws-sdk-app/aws-sdk-app-public-db/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
+                  "aws:cdk:cloudformation:props": {
+                    "dbInstanceClass": "db.t2.micro",
+                    "allocatedStorage": "100",
+                    "copyTagsToSnapshot": true,
+                    "dbInstanceIdentifier": "aws-sdk-app-public-db-rds",
+                    "dbName": "apps",
+                    "dbSubnetGroupName": {
+                      "Ref": "awssdkapppublicdbSubnetGroupD760E5A8"
+                    },
+                    "engine": "mysql",
+                    "engineVersion": "8.0.19",
+                    "masterUsername": "admin",
+                    "masterUserPassword": "admin123456",
+                    "publiclyAccessible": true,
+                    "storageType": "gp2",
+                    "vpcSecurityGroups": [
+                      {
+                        "Fn::GetAtt": [
+                          "awssdkapppublicrdssg9EDCDDAA",
+                          "GroupId"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_rds.CfnDBInstance",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_rds.DatabaseInstance",
+              "version": "2.31.1"
+            }
+          },
+          "aws-sdk-app-private-lambda-access-role": {
+            "id": "aws-sdk-app-private-lambda-access-role",
+            "path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                  "aws:cdk:cloudformation:props": {
+                    "assumeRolePolicyDocument": {
+                      "Statement": [
+                        {
+                          "Action": "sts:AssumeRole",
+                          "Effect": "Allow",
+                          "Principal": {
+                            "Service": "lambda.amazonaws.com"
+                          }
+                        }
+                      ],
+                      "Version": "2012-10-17"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.CfnRole",
+                  "version": "2.31.1"
+                }
+              },
+              "DefaultPolicy": {
+                "id": "DefaultPolicy",
+                "path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role/DefaultPolicy",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role/DefaultPolicy/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                      "aws:cdk:cloudformation:props": {
+                        "policyDocument": {
+                          "Statement": [
+                            {
+                              "Action": "lambda:InvokeFunction",
+                              "Effect": "Allow",
+                              "Resource": [
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:lambda:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":function:aws-sdk-app-public-lambda"
+                                    ]
+                                  ]
+                                },
+                                {
+                                  "Fn::Join": [
+                                    "",
+                                    [
+                                      "arn:aws:lambda:",
+                                      {
+                                        "Ref": "AWS::Region"
+                                      },
+                                      ":",
+                                      {
+                                        "Ref": "AWS::AccountId"
+                                      },
+                                      ":function:aws-sdk-app-private-lambda"
+                                    ]
+                                  ]
+                                }
+                              ]
+                            }
+                          ],
+                          "Version": "2012-10-17"
+                        },
+                        "policyName": "awssdkappprivatelambdaaccessroleDefaultPolicy03E07DEA",
+                        "roles": [
+                          {
+                            "Ref": "awssdkappprivatelambdaaccessroleF47771E5"
+                          }
+                        ]
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_iam.CfnPolicy",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_iam.Policy",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_iam.Role",
+              "version": "2.31.1"
+            }
+          },
+          "aws-sdk-app-public-lambda": {
+            "id": "aws-sdk-app-public-lambda",
+            "path": "aws-sdk-app/aws-sdk-app-public-lambda",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "aws-sdk-app/aws-sdk-app-public-lambda/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "aws-sdk-app/aws-sdk-app-public-lambda/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "aws-sdk-app/aws-sdk-app-public-lambda/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.31.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "aws-sdk-app/aws-sdk-app-public-lambda/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-672102091726-us-west-2",
+                      "s3Key": "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c.zip"
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "awssdkappprivatelambdaaccessroleF47771E5",
+                        "Arn"
+                      ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "region": "us-west-2",
+                        "availabilityZones": "[\"us-west-2a\",\"us-west-2b\",\"us-west-2c\",\"us-west-2d\"]",
+                        "databaseName": "apps",
+                        "userName": "admin",
+                        "password": "admin123456",
+                        "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+                      }
+                    },
+                    "functionName": "aws-sdk-app-public-lambda",
+                    "handler": "index.main",
+                    "memorySize": 1024,
+                    "runtime": "nodejs16.x",
+                    "timeout": 500
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.31.1"
+                }
+              },
+              "FunctionUrl": {
+                "id": "FunctionUrl",
+                "path": "aws-sdk-app/aws-sdk-app-public-lambda/FunctionUrl",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "aws-sdk-app/aws-sdk-app-public-lambda/FunctionUrl/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Url",
+                      "aws:cdk:cloudformation:props": {
+                        "authType": "NONE",
+                        "targetFunctionArn": {
+                          "Fn::GetAtt": [
+                            "awssdkapppubliclambda7194AD34",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnUrl",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.FunctionUrl",
+                  "version": "2.31.1"
+                }
+              },
+              "invoke-function-url": {
+                "id": "invoke-function-url",
+                "path": "aws-sdk-app/aws-sdk-app-public-lambda/invoke-function-url",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunctionUrl",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "awssdkapppubliclambda7194AD34",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "*",
+                    "functionUrlAuthType": "NONE"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
+              "version": "2.31.1"
+            }
+          },
+          "publicLambdaUrl": {
+            "id": "publicLambdaUrl",
+            "path": "aws-sdk-app/publicLambdaUrl",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.31.1"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "aws-sdk-app/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "aws-sdk-app/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.CfnResource",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "constructs.Construct",
+              "version": "10.0.112"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "aws-cdk-lib.Stack",
+          "version": "2.31.1"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "aws-cdk-lib.App",
+      "version": "2.31.1"
+    }
+  }
+}

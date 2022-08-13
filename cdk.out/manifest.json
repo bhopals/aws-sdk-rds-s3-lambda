@@ -1,0 +1,208 @@
+{
+  "version": "20.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "aws-sdk-app.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "aws-sdk-app.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "aws-sdk-app": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://672102091726/us-west-2",
+      "properties": {
+        "templateFile": "aws-sdk-app.template.json",
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-deploy-role-672102091726-us-west-2",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-cfn-exec-role-672102091726-us-west-2",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-672102091726-us-west-2/e9f35727ccdb274baab1f7fc11b7ceeb706467e12a43866177e2518c28970f20.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "aws-sdk-app.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-lookup-role-672102091726-us-west-2",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "aws-sdk-app.assets"
+      ],
+      "metadata": {
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpc9988057D"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTable87309F87"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTableAssociationFA87253A"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1DefaultRoute298C0230"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableF964B58F"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableAssociation6C5C1692"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2DefaultRoute61E48177"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/Subnet": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/RouteTable": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTable057E6675"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/RouteTableAssociation": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTableAssociation4711E127"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/DefaultRoute": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3DefaultRoute51FEFC13"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/IGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcIGW1C6AFA61"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-vpc/VPCGW": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdsvpcVPCGW9221CE27"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-rds-sg/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicrdssg9EDCDDAA"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-db/SubnetGroup/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicdbSubnetGroupD760E5A8"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-db/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppublicdb068D472B"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-private-lambda-access-role/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkappprivatelambdaaccessroleF47771E5"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-private-lambda-access-role/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkappprivatelambdaaccessroleDefaultPolicy03E07DEA"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-lambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppubliclambda7194AD34"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-lambda/FunctionUrl/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppubliclambdaFunctionUrl998C65E4"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-public-lambda/invoke-function-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkapppubliclambdainvokefunctionurl09BBF704"
+          }
+        ],
+        "/aws-sdk-app/publicLambdaUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicLambdaUrl"
+          }
+        ],
+        "/aws-sdk-app/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata"
+          }
+        ],
+        "/aws-sdk-app/BootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "BootstrapVersion"
+          }
+        ],
+        "/aws-sdk-app/CheckBootstrapVersion": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CheckBootstrapVersion"
+          }
+        ]
+      },
+      "displayName": "aws-sdk-app"
+    }
+  }
+}

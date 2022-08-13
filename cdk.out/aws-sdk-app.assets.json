@@ -1,0 +1,34 @@
+{
+  "version": "20.0.0",
+  "files": {
+    "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c": {
+      "source": {
+        "path": "/Users/bsingh/git-repos/aws-sdk-rds-s3-lambda",
+        "packaging": "zip"
+      },
+      "destinations": {
+        "672102091726-us-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-672102091726-us-west-2",
+          "objectKey": "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c.zip",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-file-publishing-role-672102091726-us-west-2"
+        }
+      }
+    },
+    "e9f35727ccdb274baab1f7fc11b7ceeb706467e12a43866177e2518c28970f20": {
+      "source": {
+        "path": "aws-sdk-app.template.json",
+        "packaging": "file"
+      },
+      "destinations": {
+        "672102091726-us-west-2": {
+          "bucketName": "cdk-hnb659fds-assets-672102091726-us-west-2",
+          "objectKey": "e9f35727ccdb274baab1f7fc11b7ceeb706467e12a43866177e2518c28970f20.json",
+          "region": "us-west-2",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-file-publishing-role-672102091726-us-west-2"
+        }
+      }
+    }
+  },
+  "dockerImages": {}
+}
