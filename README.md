@@ -48,17 +48,21 @@ open the Lambda URL to trigger Create/Query request.
 
 #### Additional Steps once RDS instance is Created
 
+Note: This needs to be done once the STACK is DEPLOYED (If a RULE for TCP inbound is missing).
+
 One MySql Instance is up and Running, make sure you ADD an INBOUND Rule to make DATABASE
 publicly accessible.
 
 - STEPS to Create a rule`
   - Go RDS console
   - Under "Connectivity & Security Section", look for VPC security groups, You will find a hyperlink
-    for example - (sg-0ff6f254).
+    for example - (sg-\*\*\*).
   - Clicking on the link, will redirect you to Security Rules.
   - Click on Inbound Rule ==> Edit Inbound Rules
   - Add rules with a Below Settings.
-    - Type - All TCP
+    - Type - MySQL/Aurora
+    - Protocol - TCP
+    - Port Range - 3306
     - Source - custom
       0.0.0.0
   - SAVE the RULE

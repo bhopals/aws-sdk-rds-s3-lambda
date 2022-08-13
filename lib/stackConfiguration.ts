@@ -7,11 +7,11 @@ export const appName: string = "aws-sdk-app";
 export const FUN_LABEL: string = ":function:";
 export const ARN_LABEL: string = "arn:aws:lambda:";
 export const BASE_PATH: string = "/../src/lambda";
-export const CREATE_LAMBDA_URL: string = "createLambdaUrl";
-export const QUERY_LAMBDA_URL: string = "queryLambdaUrl";
+export const S3_LAMBDA_URL: string = "s3LambdaUrl";
+export const RDS_LAMBDA_URL: string = "rdsLambdaUrl";
 
-export const CREATE_LAMBDA_PATH: string = `${BASE_PATH}/createLambda.ts`;
-export const QUERY_LAMBDA_PATH: string = `${BASE_PATH}/queryLambda.ts`;
+export const S3_LAMBDA_PATH: string = `${BASE_PATH}/s3Lambda.ts`;
+export const RDS_LAMBDA_PATH: string = `${BASE_PATH}/rdsLambda.ts`;
 
 export enum LambdaRole {
   NAME = "private-lambda-access-role",
@@ -20,8 +20,8 @@ export enum LambdaRole {
 }
 
 export enum LambdaType {
-  CREATE_LAMBDA = "create-lambda",
-  QUERY_LAMBDA = "query-lambda",
+  S3_LAMBDA = "s3-lambda",
+  RDS_LAMBDA = "rds-lambda",
 }
 
 /**** RDS Constants */
@@ -39,6 +39,11 @@ export const RDS_SECURITY_GROUP_NAME = `${appName}PublicRdsSG`;
 export const RDS_SG_ALLOW_TCP = "allow TCP access from anywhere";
 
 /*** S3 Bucket */
-export const S3_BUCKET_NAME = "sdk-bucket-create";
+export const S3_BUCKET_NAME = "s3-bucket";
 export const S3_BUCKET_ARN = "s3-bucket-arn";
-export const S3_BUCKET_ID = `${appName}-sdk-bucket-create`;
+export const S3_BUCKET_ID = `${appName}-app-details-bucket`;
+
+export const S3_PRINCIPAL = "*";
+export const S3_GET_OBJECT = "s3:GetObject";
+export const S3_PUT_OBJECT = "s3:PutObject";
+export const S3_DELETE_OBJECT = "s3:DeleteObject";

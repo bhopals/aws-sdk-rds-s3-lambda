@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/require-await */
 import { APIGatewayProxyEventV2, APIGatewayProxyResultV2 } from "aws-lambda";
-// import { RDSClient, DescribeDBInstancesCommand } from "@aws-sdk/client-rds";
 import {
   S3Client,
   ListBucketsCommand,
@@ -14,45 +13,37 @@ export async function main(
 ): Promise<APIGatewayProxyResultV2> {
   let response = {} as any;
   try {
+    /*** 1. CREATE S3 Client */
     const s3Client = new S3Client({});
-    /*** S3 Create a Bucket */
+
+    /*** 2. S3 Create a Bucket */
     const newS3Bucket = `${appName}-${S3_BUCKET_NAME}-${Date.now()}`;
-    const s3CreatResponse = await s3Client.send(
+    const s3CreateResponse = await s3Client.send(
       new CreateBucketCommand({
         Bucket: newS3Bucket,
       })
     );
 
-    /*** S3 List All Buckets */
+    /*** 3. S3 List All Buckets */
     let s3ListResponse = await s3Client.send(new ListBucketsCommand({}));
     const s3List =
       (s3ListResponse &&
         s3ListResponse.Buckets &&
         s3ListResponse.Buckets.map((bucket) => bucket.Name)) ||
       [];
-
-    /*** RDS List All Instances */
-    // const rdsListResponse = await new RDSClient({}).send(
-    //   new DescribeDBInstancesCommand({})
-    // );
-    // const rdsList =
-    //   (rdsListResponse &&
-    //     rdsListResponse.DBInstances &&
-    //     rdsListResponse.DBInstances.map((rds) => rds)) ||
-    //   [];
-
     response = {
       body: JSON.stringify({
+        LENGTH: s3List.length,
         s3List,
+        newS3Bucket,
         metadata: {
-          newS3Bucket,
-          s3CreatResponse,
+          s3ListResponse,
+          s3CreateResponse,
         },
       }),
       statusCode: 200,
     };
   } catch (err) {
-    console.log("ERR>", err);
     response = {
       body: JSON.stringify({
         err,

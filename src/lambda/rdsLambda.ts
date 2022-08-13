@@ -21,9 +21,12 @@ export async function main(
   let response = {} as any;
 
   try {
-    /*** RDS Create a new Instaces */
+    /** 1. Create RDS Client */
+    const rdsClient = new RDSClient({});
+
+    /*** 2. RDS Create a new Instaces */
     const newRdsInstanceId = `${RDS_INSTANCE_ID}-${Date.now()}`;
-    const rdsCreateResponse = await new RDSClient({}).send(
+    const rdsCreateResponse = await rdsClient.send(
       new CreateDBInstanceCommand({
         Engine: "mysql",
         AllocatedStorage: 21,
@@ -38,8 +41,8 @@ export async function main(
       })
     );
 
-    /*** RDS List All Instances */
-    const rdsListResponse = await new RDSClient({}).send(
+    /*** 3. RDS List All Instances */
+    const rdsListResponse = await rdsClient.send(
       new DescribeDBInstancesCommand({})
     );
     const rdsList =
@@ -47,29 +50,19 @@ export async function main(
         rdsListResponse.DBInstances &&
         rdsListResponse.DBInstances.map((rds) => rds)) ||
       [];
-
-    console.log("rdsCreateResponse>", rdsCreateResponse);
     response = {
       body: JSON.stringify({
+        LENGTH: rdsList.length,
+        rdsList,
         newRdsInstance: `Database instance(${newRdsInstanceId}) creation is triggered. Please check after 5-10 mins.`,
         metadata: {
-          rdsList,
-          rdsCreateResponse,
-        },
-      }),
-      statusCode: 200,
-    };
-    response = {
-      body: JSON.stringify({
-        newRdsInstance: `Database instance(${newRdsInstanceId}) creation is triggered. Please check after 5-10 mins.`,
-        metadata: {
+          rdsListResponse,
           rdsCreateResponse,
         },
       }),
       statusCode: 200,
     };
   } catch (err) {
-    console.log("ERR>", err);
     response = {
       body: JSON.stringify({
         err,

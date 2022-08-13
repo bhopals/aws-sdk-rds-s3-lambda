@@ -8,6 +8,8 @@ import {
   ServicePrincipal,
   PolicyStatement,
   ManagedPolicy,
+  Effect,
+  AnyPrincipal,
 } from "aws-cdk-lib/aws-iam";
 
 import {
@@ -16,14 +18,11 @@ import {
   handler,
   appName,
   AWS_SDK,
-  CREATE_LAMBDA_PATH,
-  QUERY_LAMBDA_PATH,
   FUN_LABEL,
   ARN_LABEL,
   RDS_DB_NAME,
   RDS_DB_USER,
   RDS_DB_PASSWORD,
-  RDS_ENDPOINT,
   RDS_SG_ALLOW_TCP,
   RDS_VPC_ID,
   RDS_INSTANCE_ID,
@@ -31,8 +30,15 @@ import {
   RDS_SECURITY_GROUP_ID,
   RDS_SECURITY_GROUP_NAME,
   RDS_SUBNET_NAME,
-  CREATE_LAMBDA_URL,
-  QUERY_LAMBDA_URL,
+  RDS_LAMBDA_PATH,
+  S3_LAMBDA_PATH,
+  S3_LAMBDA_URL,
+  RDS_LAMBDA_URL,
+  S3_BUCKET_ID,
+  S3_DELETE_OBJECT,
+  S3_PUT_OBJECT,
+  S3_PRINCIPAL,
+  S3_GET_OBJECT,
 } from "./stackConfiguration";
 import {
   Vpc,
@@ -50,85 +56,130 @@ import {
   MysqlEngineVersion,
   Credentials,
 } from "aws-cdk-lib/aws-rds";
+import { Bucket } from "aws-cdk-lib/aws-s3";
 
 export class CdkStarterStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    /**** CREATE VPC */
-    const vpc = this.createVPC();
-
-    /**** CREATE SECURITY GROUP */
-    const securityGroup = this.createSecurityGroup(vpc);
-
-    /*** RDS INSTANCE (VPC + SUBNET + SECURITY GROUP + MYSQL Instance) */
-    // const dbInstance = this.createRDSInstance(id);
-
     /*** LAMBDA ROLE */
     const role = this.createLambdaRole();
 
-    /*** CREATE LAMBDA FUNCTION */
-    const createLambda = this.createLambda(
+    /*** S3 - LAMBDA FUNCTION */
+    const s3Lambda = this.createLambda(
       role,
-      securityGroup,
-      vpc,
-      LambdaType.CREATE_LAMBDA,
-      CREATE_LAMBDA_PATH
+      LambdaType.S3_LAMBDA,
+      S3_LAMBDA_PATH
     );
-
-    /*** QUERY LAMBDA FUNCTION */
-    const queryLambda = this.createLambda(
-      role,
-      securityGroup,
-      vpc,
-      LambdaType.QUERY_LAMBDA,
-      QUERY_LAMBDA_PATH
-    );
-
-    /** Expose CREATE LAMBDA URL */
-    const clFnUrl = createLambda.addFunctionUrl({
+    /** S3 -Expose LAMBDA URL */
+    const s3FnUrl = s3Lambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
 
-    /** Expose QUERY LAMBDA URL */
-    const qlFnUrl = queryLambda.addFunctionUrl({
+    /** S3 - OUTPUT LAMBDA URL */
+    new CfnOutput(this, S3_LAMBDA_URL, {
+      value: s3FnUrl.url,
+    });
+
+    /*** RDS - LAMBDA FUNCTION */
+    const rdsLambda = this.createLambda(
+      role,
+      LambdaType.RDS_LAMBDA,
+      RDS_LAMBDA_PATH
+    );
+
+    /** RDS - Expose LAMBDA URL */
+    const rdsFnUrl = rdsLambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
+
+    /** RDS - OUTPUT LAMBDA URL */
+    new CfnOutput(this, RDS_LAMBDA_URL, {
+      value: rdsFnUrl.url,
+    });
+
+    /**** CREATE VPC */
+    // const vpc = this.createVPC();
+
+    /**** CREATE SECURITY GROUP */
+    // const securityGroup = this.createSecurityGroup(vpc);
 
     /** OUTPUT VPC ARN */
-    new CfnOutput(this, "vpcArn", {
-      value: vpc.vpcArn,
-    });
+    // new CfnOutput(this, "vpcArn", {
+    //   value: vpc.vpcArn,
+    // });
 
     /** OUTPUT VPC ID */
-    new CfnOutput(this, "vpcId", {
-      value: vpc.vpcId,
-    });
+    // new CfnOutput(this, "vpcId", {
+    //   value: vpc.vpcId,
+    // });
 
     /** OUTPUT VPC ID */
-    new CfnOutput(this, "vpc subnets", {
-      value: vpc.publicSubnets.join(","),
-    });
+    // new CfnOutput(this, "vpc subnets", {
+    //   value: vpc.publicSubnets.join(","),
+    // });
 
     /** OUTPUT Security Group ID */
-    new CfnOutput(this, "securityGroupId", {
-      value: securityGroup.securityGroupId,
-    });
+    // new CfnOutput(this, "securityGroupId", {
+    //   value: securityGroup.securityGroupId,
+    // });
 
     /** OUTPUT Security Group VPC ID */
-    new CfnOutput(this, "securityGroupVpcId", {
-      value: securityGroup.securityGroupVpcId,
+    // new CfnOutput(this, "securityGroupVpcId", {
+    //   value: securityGroup.securityGroupVpcId,
+    // });
+  }
+
+  private createLambda(role: Role, name: string, lambdaPath: string) {
+    return new NodejsFunction(this, `${appName}-${name}`, {
+      role,
+      handler,
+      memorySize: 1024,
+      timeout: cdk.Duration.seconds(500),
+      runtime: lambda.Runtime.NODEJS_16_X,
+      entry: path.join(__dirname, lambdaPath),
+      functionName: `${appName}-${name}`,
+      bundling: {
+        minify: false,
+        externalModules: [AWS_SDK],
+      },
+      environment: {
+        userName: RDS_DB_USER,
+        databaseName: RDS_DB_NAME,
+        password: RDS_DB_PASSWORD,
+        rdsInstaceId: RDS_INSTANCE_ID,
+        region: cdk.Stack.of(this).region,
+        rdsInstanceName: RDS_INSTANCE_NAME,
+        availabilityZones: JSON.stringify(cdk.Stack.of(this).availabilityZones),
+      },
+    });
+  }
+
+  private createLambdaRole() {
+    const role = new Role(this, `${appName}-${LambdaRole.NAME}`, {
+      assumedBy: new ServicePrincipal(LambdaRole.SERVICE_PRINCIPAL),
     });
 
-    /** OUTPUT CREATE LAMBDA URL */
-    new CfnOutput(this, CREATE_LAMBDA_URL, {
-      value: qlFnUrl.url,
-    });
+    role.addToPolicy(
+      new PolicyStatement({
+        resources: [
+          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.S3_LAMBDA}`,
+          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.RDS_LAMBDA}`,
+        ],
+        actions: [LambdaRole.ACTIONS],
+      })
+    );
 
-    /** OUTPUT QUERY LAMBDA URL */
-    new CfnOutput(this, QUERY_LAMBDA_URL, {
-      value: qlFnUrl.url,
-    });
+    role.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess")
+    );
+    role.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonRDSFullAccess")
+    );
+    role.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonRDSDataFullAccess")
+    );
+    return role;
   }
 
   private createRDSInstance(id: string) {
@@ -197,81 +248,19 @@ export class CdkStarterStack extends cdk.Stack {
     return fnSg;
   }
 
-  private createLambda(
-    role: Role,
-    fnSg: SecurityGroup,
-    vpc: Vpc,
-    name: string,
-    lambdaPath: string
-  ) {
-    return new NodejsFunction(this, `${appName}-${name}`, {
-      role,
-      handler,
-      memorySize: 1024,
-      timeout: cdk.Duration.seconds(500),
-      runtime: lambda.Runtime.NODEJS_16_X,
-      entry: path.join(__dirname, lambdaPath),
-      functionName: `${appName}-${name}`,
-      bundling: {
-        minify: false,
-        externalModules: [AWS_SDK],
-      },
-      environment: {
-        vpcId: vpc.vpcId,
-        vpcArn: vpc.vpcArn,
-        userName: RDS_DB_USER,
-        databaseName: RDS_DB_NAME,
-        password: RDS_DB_PASSWORD,
-        rdsInstaceId: RDS_INSTANCE_ID,
-        region: cdk.Stack.of(this).region,
-        rdsInstanceName: RDS_INSTANCE_NAME,
-        securityGroupId: fnSg.securityGroupId,
-        securityGroupVpcId: fnSg.securityGroupVpcId,
-        availabilityZones: JSON.stringify(cdk.Stack.of(this).availabilityZones),
-      },
+  private createS3Bucket() {
+    const bucket = new Bucket(this, S3_BUCKET_ID, {
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: true,
     });
-  }
-
-  private createLambdaRole() {
-    const role = new Role(this, `${appName}-${LambdaRole.NAME}`, {
-      assumedBy: new ServicePrincipal(LambdaRole.SERVICE_PRINCIPAL),
-    });
-
-    role.addToPolicy(
+    bucket.addToResourcePolicy(
       new PolicyStatement({
-        resources: [
-          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.CREATE_LAMBDA}`,
-          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.QUERY_LAMBDA}`,
-        ],
-        actions: [LambdaRole.ACTIONS],
+        effect: Effect.ALLOW,
+        principals: [new AnyPrincipal()],
+        actions: [S3_GET_OBJECT, S3_DELETE_OBJECT, S3_PUT_OBJECT],
+        resources: [`${bucket.bucketArn}/${S3_PRINCIPAL}`],
       })
     );
-
-    role.addManagedPolicy(
-      ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess")
-    );
-    role.addManagedPolicy(
-      ManagedPolicy.fromAwsManagedPolicyName("AmazonRDSFullAccess")
-    );
-    role.addManagedPolicy(
-      ManagedPolicy.fromAwsManagedPolicyName("AmazonRDSDataFullAccess")
-    );
-    return role;
+    return bucket;
   }
-
-  // private createS3Bucket() {
-  //   const bucket = new Bucket(this, S3_BUCKET_ID, {
-  //     removalPolicy: cdk.RemovalPolicy.DESTROY,
-  //     autoDeleteObjects: true,
-  //   });
-  //   bucket.addToResourcePolicy(
-  //     new PolicyStatement({
-  //       effect: Effect.ALLOW,
-  //       principals: [new AnyPrincipal()],
-  //       actions: [S3_GET_OBJECT, S3_DELETE_OBJECT, S3_PUT_OBJECT],
-  //       resources: [`${bucket.bucketArn}/${S3_PRINCIPAL}`],
-  //     })
-  //   );
-  //   return bucket;
-  // }
 }

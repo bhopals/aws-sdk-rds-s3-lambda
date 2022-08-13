@@ -1,311 +1,5 @@
 {
  "Resources": {
-  "awssdkapppublicrdsvpc9988057D": {
-   "Type": "AWS::EC2::VPC",
-   "Properties": {
-    "CidrBlock": "10.0.0.0/16",
-    "EnableDnsHostnames": true,
-    "EnableDnsSupport": true,
-    "InstanceTenancy": "default",
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/Resource"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "AvailabilityZone": "us-east-1a",
-    "CidrBlock": "10.0.0.0/24",
-    "MapPublicIpOnLaunch": true,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "aws-sdk-app-public-subnet"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Public"
-     },
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/Subnet"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTable87309F87": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/RouteTable"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTableAssociationFA87253A": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTable87309F87"
-    },
-    "SubnetId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/RouteTableAssociation"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1DefaultRoute298C0230": {
-   "Type": "AWS::EC2::Route",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1RouteTable87309F87"
-    },
-    "DestinationCidrBlock": "0.0.0.0/0",
-    "GatewayId": {
-     "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
-    }
-   },
-   "DependsOn": [
-    "awssdkapppublicrdsvpcVPCGW9221CE27"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1/DefaultRoute"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "AvailabilityZone": "us-east-1b",
-    "CidrBlock": "10.0.1.0/24",
-    "MapPublicIpOnLaunch": true,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "aws-sdk-app-public-subnet"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Public"
-     },
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/Subnet"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableF964B58F": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/RouteTable"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableAssociation6C5C1692": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableF964B58F"
-    },
-    "SubnetId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/RouteTableAssociation"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2DefaultRoute61E48177": {
-   "Type": "AWS::EC2::Route",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2RouteTableF964B58F"
-    },
-    "DestinationCidrBlock": "0.0.0.0/0",
-    "GatewayId": {
-     "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
-    }
-   },
-   "DependsOn": [
-    "awssdkapppublicrdsvpcVPCGW9221CE27"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2/DefaultRoute"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D": {
-   "Type": "AWS::EC2::Subnet",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "AvailabilityZone": "us-east-1c",
-    "CidrBlock": "10.0.2.0/24",
-    "MapPublicIpOnLaunch": true,
-    "Tags": [
-     {
-      "Key": "aws-cdk:subnet-name",
-      "Value": "aws-sdk-app-public-subnet"
-     },
-     {
-      "Key": "aws-cdk:subnet-type",
-      "Value": "Public"
-     },
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/Subnet"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTable057E6675": {
-   "Type": "AWS::EC2::RouteTable",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/RouteTable"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTableAssociation4711E127": {
-   "Type": "AWS::EC2::SubnetRouteTableAssociation",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTable057E6675"
-    },
-    "SubnetId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/RouteTableAssociation"
-   }
-  },
-  "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3DefaultRoute51FEFC13": {
-   "Type": "AWS::EC2::Route",
-   "Properties": {
-    "RouteTableId": {
-     "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3RouteTable057E6675"
-    },
-    "DestinationCidrBlock": "0.0.0.0/0",
-    "GatewayId": {
-     "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
-    }
-   },
-   "DependsOn": [
-    "awssdkapppublicrdsvpcVPCGW9221CE27"
-   ],
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3/DefaultRoute"
-   }
-  },
-  "awssdkapppublicrdsvpcIGW1C6AFA61": {
-   "Type": "AWS::EC2::InternetGateway",
-   "Properties": {
-    "Tags": [
-     {
-      "Key": "Name",
-      "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/IGW"
-   }
-  },
-  "awssdkapppublicrdsvpcVPCGW9221CE27": {
-   "Type": "AWS::EC2::VPCGatewayAttachment",
-   "Properties": {
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    },
-    "InternetGatewayId": {
-     "Ref": "awssdkapppublicrdsvpcIGW1C6AFA61"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-vpc/VPCGW"
-   }
-  },
-  "awssdkapppublicrdssg9EDCDDAA": {
-   "Type": "AWS::EC2::SecurityGroup",
-   "Properties": {
-    "GroupDescription": "aws-sdk-app/aws-sdk-app-public-rds-sg",
-    "GroupName": "aws-sdk-appPublicRdsSG",
-    "SecurityGroupEgress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "Allow all outbound traffic by default",
-      "IpProtocol": "-1"
-     }
-    ],
-    "SecurityGroupIngress": [
-     {
-      "CidrIp": "0.0.0.0/0",
-      "Description": "allow TCP access from anywhere",
-      "FromPort": 3306,
-      "IpProtocol": "tcp",
-      "ToPort": 3306
-     }
-    ],
-    "VpcId": {
-     "Ref": "awssdkapppublicrdsvpc9988057D"
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-sg/Resource"
-   }
-  },
   "awssdkappprivatelambdaaccessroleF47771E5": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -385,7 +79,7 @@
            {
             "Ref": "AWS::AccountId"
            },
-           ":function:aws-sdk-app-create-lambda"
+           ":function:aws-sdk-app-s3-lambda"
           ]
          ]
         },
@@ -401,7 +95,7 @@
            {
             "Ref": "AWS::AccountId"
            },
-           ":function:aws-sdk-app-query-lambda"
+           ":function:aws-sdk-app-rds-lambda"
           ]
          ]
         }
@@ -421,12 +115,12 @@
     "aws:cdk:path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role/DefaultPolicy/Resource"
    }
   },
-  "awssdkappcreatelambdaF1786253": {
+  "awssdkapps3lambdaC00F52F4": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-355464123969-us-east-1",
-     "S3Key": "e7c1a9f12a5d2d2f435b2df06e2a9de37cc25bdd92a9786e11fe968f2fd56169.zip"
+     "S3Key": "5d91e8e1a4647028f16279c5b41a885191c2e57201ad30c38d5997b6561701a4.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -436,47 +130,17 @@
     },
     "Environment": {
      "Variables": {
-      "vpcId": {
-       "Ref": "awssdkapppublicrdsvpc9988057D"
-      },
-      "vpcArn": {
-       "Fn::Join": [
-        "",
-        [
-         "arn:",
-         {
-          "Ref": "AWS::Partition"
-         },
-         ":ec2:us-east-1:355464123969:vpc/",
-         {
-          "Ref": "awssdkapppublicrdsvpc9988057D"
-         }
-        ]
-       ]
-      },
       "userName": "admin",
       "databaseName": "apps",
       "password": "admin123456",
       "rdsInstaceId": "aws-sdk-app-public-db",
       "region": "us-east-1",
       "rdsInstanceName": "aws-sdk-app-public-db-rds",
-      "securityGroupId": {
-       "Fn::GetAtt": [
-        "awssdkapppublicrdssg9EDCDDAA",
-        "GroupId"
-       ]
-      },
-      "securityGroupVpcId": {
-       "Fn::GetAtt": [
-        "awssdkapppublicrdssg9EDCDDAA",
-        "VpcId"
-       ]
-      },
       "availabilityZones": "[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\",\"us-east-1d\",\"us-east-1e\",\"us-east-1f\"]",
       "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
      }
     },
-    "FunctionName": "aws-sdk-app-create-lambda",
+    "FunctionName": "aws-sdk-app-s3-lambda",
     "Handler": "index.main",
     "MemorySize": 1024,
     "Runtime": "nodejs16.x",
@@ -487,34 +151,34 @@
     "awssdkappprivatelambdaaccessroleF47771E5"
    ],
    "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-create-lambda/Resource",
-    "aws:asset:path": "asset.e7c1a9f12a5d2d2f435b2df06e2a9de37cc25bdd92a9786e11fe968f2fd56169",
+    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-s3-lambda/Resource",
+    "aws:asset:path": "/Users/bsingh/git-repos/aws-sdk-rds-s3-lambda",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
   },
-  "awssdkappcreatelambdaFunctionUrl53B74D83": {
+  "awssdkapps3lambdaFunctionUrl2E6F145C": {
    "Type": "AWS::Lambda::Url",
    "Properties": {
     "AuthType": "NONE",
     "TargetFunctionArn": {
      "Fn::GetAtt": [
-      "awssdkappcreatelambdaF1786253",
+      "awssdkapps3lambdaC00F52F4",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-create-lambda/FunctionUrl/Resource"
+    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-s3-lambda/FunctionUrl/Resource"
    }
   },
-  "awssdkappcreatelambdainvokefunctionurlE506A1CC": {
+  "awssdkapps3lambdainvokefunctionurl8C29712E": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunctionUrl",
     "FunctionName": {
      "Fn::GetAtt": [
-      "awssdkappcreatelambdaF1786253",
+      "awssdkapps3lambdaC00F52F4",
       "Arn"
      ]
     },
@@ -522,15 +186,15 @@
     "FunctionUrlAuthType": "NONE"
    },
    "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-create-lambda/invoke-function-url"
+    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-s3-lambda/invoke-function-url"
    }
   },
-  "awssdkappquerylambda737C01F6": {
+  "awssdkapprdslambdaA93F1C82": {
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-355464123969-us-east-1",
-     "S3Key": "d668c59875c8ce65a186616f32aebb8244a90dc3050e1d49f5e80ea04b6ad14f.zip"
+     "S3Key": "276b250b6591ce128db97c7dd8a1dcd23ec514efd442254c48d7a2909a8a6247.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -540,47 +204,17 @@
     },
     "Environment": {
      "Variables": {
-      "vpcId": {
-       "Ref": "awssdkapppublicrdsvpc9988057D"
-      },
-      "vpcArn": {
-       "Fn::Join": [
-        "",
-        [
-         "arn:",
-         {
-          "Ref": "AWS::Partition"
-         },
-         ":ec2:us-east-1:355464123969:vpc/",
-         {
-          "Ref": "awssdkapppublicrdsvpc9988057D"
-         }
-        ]
-       ]
-      },
       "userName": "admin",
       "databaseName": "apps",
       "password": "admin123456",
       "rdsInstaceId": "aws-sdk-app-public-db",
       "region": "us-east-1",
       "rdsInstanceName": "aws-sdk-app-public-db-rds",
-      "securityGroupId": {
-       "Fn::GetAtt": [
-        "awssdkapppublicrdssg9EDCDDAA",
-        "GroupId"
-       ]
-      },
-      "securityGroupVpcId": {
-       "Fn::GetAtt": [
-        "awssdkapppublicrdssg9EDCDDAA",
-        "VpcId"
-       ]
-      },
       "availabilityZones": "[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\",\"us-east-1d\",\"us-east-1e\",\"us-east-1f\"]",
       "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
      }
     },
-    "FunctionName": "aws-sdk-app-query-lambda",
+    "FunctionName": "aws-sdk-app-rds-lambda",
     "Handler": "index.main",
     "MemorySize": 1024,
     "Runtime": "nodejs16.x",
@@ -591,34 +225,34 @@
     "awssdkappprivatelambdaaccessroleF47771E5"
    ],
    "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-query-lambda/Resource",
-    "aws:asset:path": "asset.d668c59875c8ce65a186616f32aebb8244a90dc3050e1d49f5e80ea04b6ad14f",
+    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-rds-lambda/Resource",
+    "aws:asset:path": "/Users/bsingh/git-repos/aws-sdk-rds-s3-lambda",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
   },
-  "awssdkappquerylambdaFunctionUrlB2EC9E64": {
+  "awssdkapprdslambdaFunctionUrlF55FF647": {
    "Type": "AWS::Lambda::Url",
    "Properties": {
     "AuthType": "NONE",
     "TargetFunctionArn": {
      "Fn::GetAtt": [
-      "awssdkappquerylambda737C01F6",
+      "awssdkapprdslambdaA93F1C82",
       "Arn"
      ]
     }
    },
    "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-query-lambda/FunctionUrl/Resource"
+    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-rds-lambda/FunctionUrl/Resource"
    }
   },
-  "awssdkappquerylambdainvokefunctionurl1E968FD9": {
+  "awssdkapprdslambdainvokefunctionurl75306ABA": {
    "Type": "AWS::Lambda::Permission",
    "Properties": {
     "Action": "lambda:InvokeFunctionUrl",
     "FunctionName": {
      "Fn::GetAtt": [
-      "awssdkappquerylambda737C01F6",
+      "awssdkapprdslambdaA93F1C82",
       "Arn"
      ]
     },
@@ -626,13 +260,13 @@
     "FunctionUrlAuthType": "NONE"
    },
    "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-query-lambda/invoke-function-url"
+    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-rds-lambda/invoke-function-url"
    }
   },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/01Qy27CMBD8Fu7OtiFS74BU1EsbhZYrcswWnIcdeddFKMq/105S0tPMjmZ3RruGLIV0JW+UqHOdNLqE/sBS1SJIpx7VGvpjp8Tu2xzznch92Wh18KVBjtrCCusZP2XZ4KIv2obIKi1ZW/MwR/JmGF1w7iXjTd7nmHnacChybdGwOKDyTvN976zvxoD/wiC0bKEv7BQ+Ym5D0fHgxAbRyLY8y5OxZ6wI3kd49UaNpSg7SSJkgk2EMMPWqxp5KwnnVejDtcfGH/lyTUyZIUfXaqKgD4MokKx3CsV4M7z1os0luj48d35622wZROwFFT39pC+QZvC8qkjrxHnDukUoJvwFkGdJ2a8BAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/z2OSw+CQAyEf4v3pYok3sXEoxKNZ7IulRT2YeiuxhD+u7v4OH2daTqdNRQ55Av55Ew1fabpCuPZS9WLaNUjSQPjyWkUu5udWTlN6pXkZ5qElubayNq6BjuGw4x9sMqTs4KLWjKjZ9gmRA1lUD36UjJ+T2GMaf+L33AZdPryRYWDIeboT5OYo2LLlmyblsfg78HPFZFdGBROItWBjpePfAN5AatFx0TZEKwng3D68A2UwnuR/gAAAA=="
    },
    "Metadata": {
     "aws:cdk:path": "aws-sdk-app/CDKMetadata/Default"
@@ -640,59 +274,18 @@
   }
  },
  "Outputs": {
-  "vpcArn": {
-   "Value": {
-    "Fn::Join": [
-     "",
-     [
-      "arn:",
-      {
-       "Ref": "AWS::Partition"
-      },
-      ":ec2:us-east-1:355464123969:vpc/",
-      {
-       "Ref": "awssdkapppublicrdsvpc9988057D"
-      }
-     ]
-    ]
-   }
-  },
-  "vpcId": {
-   "Value": {
-    "Ref": "awssdkapppublicrdsvpc9988057D"
-   }
-  },
-  "vpcsubnets": {
-   "Value": "aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet1,aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet2,aws-sdk-app/aws-sdk-app-public-rds-vpc/aws-sdk-app-public-subnetSubnet3"
-  },
-  "securityGroupId": {
+  "s3LambdaUrl": {
    "Value": {
     "Fn::GetAtt": [
-     "awssdkapppublicrdssg9EDCDDAA",
-     "GroupId"
-    ]
-   }
-  },
-  "securityGroupVpcId": {
-   "Value": {
-    "Fn::GetAtt": [
-     "awssdkapppublicrdssg9EDCDDAA",
-     "VpcId"
-    ]
-   }
-  },
-  "createLambdaUrl": {
-   "Value": {
-    "Fn::GetAtt": [
-     "awssdkappquerylambdaFunctionUrlB2EC9E64",
+     "awssdkapps3lambdaFunctionUrl2E6F145C",
      "FunctionUrl"
     ]
    }
   },
-  "queryLambdaUrl": {
+  "rdsLambdaUrl": {
    "Value": {
     "Fn::GetAtt": [
-     "awssdkappquerylambdaFunctionUrlB2EC9E64",
+     "awssdkapprdslambdaFunctionUrlF55FF647",
      "FunctionUrl"
     ]
    }
