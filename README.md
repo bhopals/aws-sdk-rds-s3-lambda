@@ -51,7 +51,7 @@ open the Lambda URL to trigger Create/Query request.
 
 Note: This needs to be done once the STACK is DEPLOYED (If a RULE for TCP inbound is missing).
 
-One MySql Instance is up and Running, make sure you ADD an INBOUND Rule to make DATABASE
+Oncs MySql Instance is up and Running, make sure you ADD an INBOUND Rule to make DATABASE
 publicly accessible.
 
 - STEPS to Create a rule`
