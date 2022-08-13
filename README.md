@@ -36,7 +36,10 @@ cdk deploy
 cdk destroy
 ```
 
-### Stack Lambda Details
+9. Also, navigate to RDS and S3 console to delete the RESOURCES created using SDK. You
+   need to manually delete those once you are done with the TESTING otherwise it will incur you the cost.
+
+### Lambda Stack Details
 
 Once STACK is deployed, you should see TWO Lambda. Both Lambda has Public URL so
 open the Lambda URL to trigger Create/Query request.
