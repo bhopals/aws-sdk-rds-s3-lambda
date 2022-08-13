@@ -1,31 +1,31 @@
 {
   "version": "20.0.0",
   "files": {
-    "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c": {
+    "a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e": {
       "source": {
-        "path": "/Users/bsingh/git-repos/aws-sdk-rds-s3-lambda",
+        "path": "asset.a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e",
         "packaging": "zip"
       },
       "destinations": {
-        "672102091726-us-west-2": {
-          "bucketName": "cdk-hnb659fds-assets-672102091726-us-west-2",
-          "objectKey": "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c.zip",
-          "region": "us-west-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-file-publishing-role-672102091726-us-west-2"
+        "355464123969-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-355464123969-us-east-1",
+          "objectKey": "a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e.zip",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-file-publishing-role-355464123969-us-east-1"
         }
       }
     },
-    "e9f35727ccdb274baab1f7fc11b7ceeb706467e12a43866177e2518c28970f20": {
+    "947d534264c37e3b95c7a30aca08d6c5f8d1f218b4dac2b282d32bd560aac9e8": {
       "source": {
         "path": "aws-sdk-app.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "672102091726-us-west-2": {
-          "bucketName": "cdk-hnb659fds-assets-672102091726-us-west-2",
-          "objectKey": "e9f35727ccdb274baab1f7fc11b7ceeb706467e12a43866177e2518c28970f20.json",
-          "region": "us-west-2",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-file-publishing-role-672102091726-us-west-2"
+        "355464123969-us-east-1": {
+          "bucketName": "cdk-hnb659fds-assets-355464123969-us-east-1",
+          "objectKey": "947d534264c37e3b95c7a30aca08d6c5f8d1f218b4dac2b282d32bd560aac9e8.json",
+          "region": "us-east-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-file-publishing-role-355464123969-us-east-1"
         }
       }
     }

@@ -17,20 +17,20 @@
     },
     "aws-sdk-app": {
       "type": "aws:cloudformation:stack",
-      "environment": "aws://672102091726/us-west-2",
+      "environment": "aws://355464123969/us-east-1",
       "properties": {
         "templateFile": "aws-sdk-app.template.json",
         "validateOnSynth": false,
-        "assumeRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-deploy-role-672102091726-us-west-2",
-        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-cfn-exec-role-672102091726-us-west-2",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-672102091726-us-west-2/e9f35727ccdb274baab1f7fc11b7ceeb706467e12a43866177e2518c28970f20.json",
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-deploy-role-355464123969-us-east-1",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-cfn-exec-role-355464123969-us-east-1",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-355464123969-us-east-1/947d534264c37e3b95c7a30aca08d6c5f8d1f218b4dac2b282d32bd560aac9e8.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
           "aws-sdk-app.assets"
         ],
         "lookupRole": {
-          "arn": "arn:${AWS::Partition}:iam::672102091726:role/cdk-hnb659fds-lookup-role-672102091726-us-west-2",
+          "arn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-lookup-role-355464123969-us-east-1",
           "requiresBootstrapStackVersion": 8,
           "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
         }
@@ -135,18 +135,6 @@
             "data": "awssdkapppublicrdssg9EDCDDAA"
           }
         ],
-        "/aws-sdk-app/aws-sdk-app-public-db/SubnetGroup/Default": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "awssdkapppublicdbSubnetGroupD760E5A8"
-          }
-        ],
-        "/aws-sdk-app/aws-sdk-app-public-db/Resource": [
-          {
-            "type": "aws:cdk:logicalId",
-            "data": "awssdkapppublicdb068D472B"
-          }
-        ],
         "/aws-sdk-app/aws-sdk-app-private-lambda-access-role/Resource": [
           {
             "type": "aws:cdk:logicalId",
@@ -175,6 +163,30 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "awssdkapppubliclambdainvokefunctionurl09BBF704"
+          }
+        ],
+        "/aws-sdk-app/vpcArn": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "vpcArn"
+          }
+        ],
+        "/aws-sdk-app/vpcId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "vpcId"
+          }
+        ],
+        "/aws-sdk-app/securityGroupId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "securityGroupId"
+          }
+        ],
+        "/aws-sdk-app/securityGroupVpcId": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "securityGroupVpcId"
           }
         ],
         "/aws-sdk-app/publicLambdaUrl": [

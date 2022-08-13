@@ -56,7 +56,7 @@
                         "vpcId": {
                           "Ref": "awssdkapppublicrdsvpc9988057D"
                         },
-                        "availabilityZone": "us-west-2a",
+                        "availabilityZone": "us-east-1a",
                         "cidrBlock": "10.0.0.0/24",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
@@ -168,7 +168,7 @@
                         "vpcId": {
                           "Ref": "awssdkapppublicrdsvpc9988057D"
                         },
-                        "availabilityZone": "us-west-2b",
+                        "availabilityZone": "us-east-1b",
                         "cidrBlock": "10.0.1.0/24",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
@@ -280,7 +280,7 @@
                         "vpcId": {
                           "Ref": "awssdkapppublicrdsvpc9988057D"
                         },
-                        "availabilityZone": "us-west-2c",
+                        "availabilityZone": "us-east-1c",
                         "cidrBlock": "10.0.2.0/24",
                         "mapPublicIpOnLaunch": true,
                         "tags": [
@@ -467,86 +467,6 @@
               "version": "2.31.1"
             }
           },
-          "aws-sdk-app-public-db": {
-            "id": "aws-sdk-app-public-db",
-            "path": "aws-sdk-app/aws-sdk-app-public-db",
-            "children": {
-              "SubnetGroup": {
-                "id": "SubnetGroup",
-                "path": "aws-sdk-app/aws-sdk-app-public-db/SubnetGroup",
-                "children": {
-                  "Default": {
-                    "id": "Default",
-                    "path": "aws-sdk-app/aws-sdk-app-public-db/SubnetGroup/Default",
-                    "attributes": {
-                      "aws:cdk:cloudformation:type": "AWS::RDS::DBSubnetGroup",
-                      "aws:cdk:cloudformation:props": {
-                        "dbSubnetGroupDescription": "Subnet group for aws-sdk-app-public-db database",
-                        "subnetIds": [
-                          {
-                            "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1"
-                          },
-                          {
-                            "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D"
-                          },
-                          {
-                            "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D"
-                          }
-                        ]
-                      }
-                    },
-                    "constructInfo": {
-                      "fqn": "aws-cdk-lib.aws_rds.CfnDBSubnetGroup",
-                      "version": "2.31.1"
-                    }
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_rds.SubnetGroup",
-                  "version": "2.31.1"
-                }
-              },
-              "Resource": {
-                "id": "Resource",
-                "path": "aws-sdk-app/aws-sdk-app-public-db/Resource",
-                "attributes": {
-                  "aws:cdk:cloudformation:type": "AWS::RDS::DBInstance",
-                  "aws:cdk:cloudformation:props": {
-                    "dbInstanceClass": "db.t2.micro",
-                    "allocatedStorage": "100",
-                    "copyTagsToSnapshot": true,
-                    "dbInstanceIdentifier": "aws-sdk-app-public-db-rds",
-                    "dbName": "apps",
-                    "dbSubnetGroupName": {
-                      "Ref": "awssdkapppublicdbSubnetGroupD760E5A8"
-                    },
-                    "engine": "mysql",
-                    "engineVersion": "8.0.19",
-                    "masterUsername": "admin",
-                    "masterUserPassword": "admin123456",
-                    "publiclyAccessible": true,
-                    "storageType": "gp2",
-                    "vpcSecurityGroups": [
-                      {
-                        "Fn::GetAtt": [
-                          "awssdkapppublicrdssg9EDCDDAA",
-                          "GroupId"
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "constructInfo": {
-                  "fqn": "aws-cdk-lib.aws_rds.CfnDBInstance",
-                  "version": "2.31.1"
-                }
-              }
-            },
-            "constructInfo": {
-              "fqn": "aws-cdk-lib.aws_rds.DatabaseInstance",
-              "version": "2.31.1"
-            }
-          },
           "aws-sdk-app-private-lambda-access-role": {
             "id": "aws-sdk-app-private-lambda-access-role",
             "path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role",
@@ -568,7 +488,45 @@
                         }
                       ],
                       "Version": "2012-10-17"
-                    }
+                    },
+                    "managedPolicyArns": [
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonS3FullAccess"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonRDSFullAccess"
+                          ]
+                        ]
+                      },
+                      {
+                        "Fn::Join": [
+                          "",
+                          [
+                            "arn:",
+                            {
+                              "Ref": "AWS::Partition"
+                            },
+                            ":iam::aws:policy/AmazonRDSDataFullAccess"
+                          ]
+                        ]
+                      }
+                    ]
                   }
                 },
                 "constructInfo": {
@@ -691,8 +649,8 @@
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
                     "code": {
-                      "s3Bucket": "cdk-hnb659fds-assets-672102091726-us-west-2",
-                      "s3Key": "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c.zip"
+                      "s3Bucket": "cdk-hnb659fds-assets-355464123969-us-east-1",
+                      "s3Key": "a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -702,11 +660,43 @@
                     },
                     "environment": {
                       "variables": {
-                        "region": "us-west-2",
-                        "availabilityZones": "[\"us-west-2a\",\"us-west-2b\",\"us-west-2c\",\"us-west-2d\"]",
-                        "databaseName": "apps",
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "vpcArn": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":ec2:us-east-1:355464123969:vpc/",
+                              {
+                                "Ref": "awssdkapppublicrdsvpc9988057D"
+                              }
+                            ]
+                          ]
+                        },
                         "userName": "admin",
+                        "databaseName": "apps",
                         "password": "admin123456",
+                        "rdsInstaceId": "aws-sdk-app-public-db",
+                        "region": "us-east-1",
+                        "rdsInstanceName": "aws-sdk-app-public-db-rds",
+                        "securityGroupId": {
+                          "Fn::GetAtt": [
+                            "awssdkapppublicrdssg9EDCDDAA",
+                            "GroupId"
+                          ]
+                        },
+                        "securityGroupVpcId": {
+                          "Fn::GetAtt": [
+                            "awssdkapppublicrdssg9EDCDDAA",
+                            "VpcId"
+                          ]
+                        },
+                        "availabilityZones": "[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\",\"us-east-1d\",\"us-east-1e\",\"us-east-1f\"]",
                         "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
                       }
                     },
@@ -777,6 +767,38 @@
             },
             "constructInfo": {
               "fqn": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
+              "version": "2.31.1"
+            }
+          },
+          "vpcArn": {
+            "id": "vpcArn",
+            "path": "aws-sdk-app/vpcArn",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.31.1"
+            }
+          },
+          "vpcId": {
+            "id": "vpcId",
+            "path": "aws-sdk-app/vpcId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.31.1"
+            }
+          },
+          "securityGroupId": {
+            "id": "securityGroupId",
+            "path": "aws-sdk-app/securityGroupId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.31.1"
+            }
+          },
+          "securityGroupVpcId": {
+            "id": "securityGroupVpcId",
+            "path": "aws-sdk-app/securityGroupVpcId",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.31.1"
             }
           },

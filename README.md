@@ -40,6 +40,21 @@ cdk destroy
 
 - Make sure to go to CloudFormation, and delete any Stack related (especially - `CDKToolkit`)
 
-- MYSQL Documentation
-  - https://www.npmjs.com/package/mysql2
-  - https://github.com/sidorares/node-mysql2/tree/master/documentation
+##### References
+
+### S3
+
+- S3 (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html)
+
+- S3 LIST Bucket (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/listbucketscommand.html)
+
+- S3 Create Bucket (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/createbucketcommand.html)
+
+### RDS
+
+- RDS (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/index.html)
+
+- RDS List Instances (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/rds.html#describedbinstances)
+
+- RDS Create Instance(https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/createdbinstancecommand.html)
+- RDS Create Instance PARAMS (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/interfaces/createdbinstancecommandinput.html)

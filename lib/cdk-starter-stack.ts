@@ -3,7 +3,12 @@ import * as cdk from "aws-cdk-lib";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { CfnOutput, Aws, SecretValue } from "aws-cdk-lib";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import { Role, ServicePrincipal, PolicyStatement } from "aws-cdk-lib/aws-iam";
+import {
+  Role,
+  ServicePrincipal,
+  PolicyStatement,
+  ManagedPolicy,
+} from "aws-cdk-lib/aws-iam";
 
 import {
   LambdaType,
@@ -48,21 +53,47 @@ export class CdkStarterStack extends cdk.Stack {
   constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    /**** CREATE VPC */
+    const vpc = this.createVPC();
+
+    /**** CREATE SECURITY GROUP */
+    const securityGroup = this.createSecurityGroup(vpc);
+
     /*** RDS INSTANCE (VPC + SUBNET + SECURITY GROUP + MYSQL Instance) */
-    const dbInstance = this.createRDSInstance(id);
+    // const dbInstance = this.createRDSInstance(id);
 
     /*** LAMBDA ROLE */
     const role = this.createLambdaRole();
 
     /*** PUBLIC LAMBDA FUNCTION */
-    const publicLambda = this.createPublicLambda(role);
+    const publicLambda = this.createPublicLambda(role, securityGroup, vpc);
 
-    /** Expose PUBLIC LAMBDA URL*/
+    /** Expose PUBLIC LAMBDA URL */
     const fnUrl = publicLambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
 
-    /** OUTPUT PUBLIC LAMBDA UR*/
+    /** OUTPUT VPC ARN */
+    new CfnOutput(this, "vpcArn", {
+      value: vpc.vpcArn,
+    });
+
+    /** OUTPUT VPC ID */
+    new CfnOutput(this, "vpcId", {
+      value: vpc.vpcId,
+    });
+
+    /** OUTPUT Security Group ID */
+    new CfnOutput(this, "securityGroupId", {
+      value: securityGroup.securityGroupId,
+    });
+
+    /** OUTPUT Security Group VPC ID */
+    new CfnOutput(this, "securityGroupVpcId", {
+      value: securityGroup.securityGroupVpcId,
+    });
+
+    /** OUTPUT PUBLIC LAMBDA URL */
     new CfnOutput(this, PUBLIC_LAMBDA_URL, {
       value: fnUrl.url,
     });
@@ -98,7 +129,7 @@ export class CdkStarterStack extends cdk.Stack {
       },
       instanceType: InstanceType.of(
         InstanceClass.BURSTABLE2,
-        InstanceSize.MICRO
+        InstanceSize.NANO
       ),
       publiclyAccessible: true,
       removalPolicy: cdk.RemovalPolicy.DESTROY,
@@ -112,25 +143,53 @@ export class CdkStarterStack extends cdk.Stack {
     return dbInstance;
   }
 
-  private createPublicLambda(role: Role) {
+  private createVPC() {
+    return new Vpc(this, RDS_VPC_ID, {
+      subnetConfiguration: [
+        {
+          cidrMask: 24,
+          name: RDS_SUBNET_NAME,
+          subnetType: SubnetType.PUBLIC,
+        },
+      ],
+    });
+  }
+
+  private createSecurityGroup(vpc: cdk.aws_ec2.Vpc) {
+    const fnSg = new SecurityGroup(this, RDS_SECURITY_GROUP_ID, {
+      vpc,
+      allowAllOutbound: true,
+      securityGroupName: RDS_SECURITY_GROUP_NAME,
+    });
+    fnSg.addIngressRule(Peer.anyIpv4(), Port.tcp(3306), RDS_SG_ALLOW_TCP);
+    return fnSg;
+  }
+
+  private createPublicLambda(role: Role, fnSg: SecurityGroup, vpc: Vpc) {
     return new NodejsFunction(this, `${appName}-${LambdaType.PUBLIC_LAMBDA}`, {
+      role,
+      handler,
       memorySize: 1024,
-      functionName: `${appName}-${LambdaType.PUBLIC_LAMBDA}`,
       timeout: cdk.Duration.seconds(500),
       runtime: lambda.Runtime.NODEJS_16_X,
-      handler,
-      role,
       entry: path.join(__dirname, PUBLIC_LAMBDA_PATH),
+      functionName: `${appName}-${LambdaType.PUBLIC_LAMBDA}`,
       bundling: {
         minify: false,
         externalModules: [AWS_SDK],
       },
       environment: {
-        region: cdk.Stack.of(this).region,
-        availabilityZones: JSON.stringify(cdk.Stack.of(this).availabilityZones),
-        databaseName: RDS_DB_NAME,
+        vpcId: vpc.vpcId,
+        vpcArn: vpc.vpcArn,
         userName: RDS_DB_USER,
+        databaseName: RDS_DB_NAME,
         password: RDS_DB_PASSWORD,
+        rdsInstaceId: RDS_INSTANCE_ID,
+        region: cdk.Stack.of(this).region,
+        rdsInstanceName: RDS_INSTANCE_NAME,
+        securityGroupId: fnSg.securityGroupId,
+        securityGroupVpcId: fnSg.securityGroupVpcId,
+        availabilityZones: JSON.stringify(cdk.Stack.of(this).availabilityZones),
       },
     });
   }
@@ -150,9 +209,15 @@ export class CdkStarterStack extends cdk.Stack {
       })
     );
 
-    // role.addManagedPolicy(
-    //   ManagedPolicy.fromAwsManagedPolicyName("AmazonAPIGatewayInvokeFullAccess")
-    // );
+    role.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonS3FullAccess")
+    );
+    role.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonRDSFullAccess")
+    );
+    role.addManagedPolicy(
+      ManagedPolicy.fromAwsManagedPolicyName("AmazonRDSDataFullAccess")
+    );
     return role;
   }
 
@@ -169,7 +234,6 @@ export class CdkStarterStack extends cdk.Stack {
   //       resources: [`${bucket.bucketArn}/${S3_PRINCIPAL}`],
   //     })
   //   );
-
   //   return bucket;
   // }
 }

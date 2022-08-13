@@ -24,7 +24,7 @@
     "VpcId": {
      "Ref": "awssdkapppublicrdsvpc9988057D"
     },
-    "AvailabilityZone": "us-west-2a",
+    "AvailabilityZone": "us-east-1a",
     "CidrBlock": "10.0.0.0/24",
     "MapPublicIpOnLaunch": true,
     "Tags": [
@@ -101,7 +101,7 @@
     "VpcId": {
      "Ref": "awssdkapppublicrdsvpc9988057D"
     },
-    "AvailabilityZone": "us-west-2b",
+    "AvailabilityZone": "us-east-1b",
     "CidrBlock": "10.0.1.0/24",
     "MapPublicIpOnLaunch": true,
     "Tags": [
@@ -178,7 +178,7 @@
     "VpcId": {
      "Ref": "awssdkapppublicrdsvpc9988057D"
     },
-    "AvailabilityZone": "us-west-2c",
+    "AvailabilityZone": "us-east-1c",
     "CidrBlock": "10.0.2.0/24",
     "MapPublicIpOnLaunch": true,
     "Tags": [
@@ -306,58 +306,6 @@
     "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-rds-sg/Resource"
    }
   },
-  "awssdkapppublicdbSubnetGroupD760E5A8": {
-   "Type": "AWS::RDS::DBSubnetGroup",
-   "Properties": {
-    "DBSubnetGroupDescription": "Subnet group for aws-sdk-app-public-db database",
-    "SubnetIds": [
-     {
-      "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet1Subnet14C766E1"
-     },
-     {
-      "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet2Subnet8D0A596D"
-     },
-     {
-      "Ref": "awssdkapppublicrdsvpcawssdkapppublicsubnetSubnet3Subnet48D48D6D"
-     }
-    ]
-   },
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-db/SubnetGroup/Default"
-   }
-  },
-  "awssdkapppublicdb068D472B": {
-   "Type": "AWS::RDS::DBInstance",
-   "Properties": {
-    "DBInstanceClass": "db.t2.micro",
-    "AllocatedStorage": "100",
-    "CopyTagsToSnapshot": true,
-    "DBInstanceIdentifier": "aws-sdk-app-public-db-rds",
-    "DBName": "apps",
-    "DBSubnetGroupName": {
-     "Ref": "awssdkapppublicdbSubnetGroupD760E5A8"
-    },
-    "Engine": "mysql",
-    "EngineVersion": "8.0.19",
-    "MasterUsername": "admin",
-    "MasterUserPassword": "admin123456",
-    "PubliclyAccessible": true,
-    "StorageType": "gp2",
-    "VPCSecurityGroups": [
-     {
-      "Fn::GetAtt": [
-       "awssdkapppublicrdssg9EDCDDAA",
-       "GroupId"
-      ]
-     }
-    ]
-   },
-   "UpdateReplacePolicy": "Delete",
-   "DeletionPolicy": "Delete",
-   "Metadata": {
-    "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-db/Resource"
-   }
-  },
   "awssdkappprivatelambdaaccessroleF47771E5": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -372,7 +320,45 @@
       }
      ],
      "Version": "2012-10-17"
-    }
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonS3FullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonRDSFullAccess"
+       ]
+      ]
+     },
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/AmazonRDSDataFullAccess"
+       ]
+      ]
+     }
+    ]
    },
    "Metadata": {
     "aws:cdk:path": "aws-sdk-app/aws-sdk-app-private-lambda-access-role/Resource"
@@ -439,8 +425,8 @@
    "Type": "AWS::Lambda::Function",
    "Properties": {
     "Code": {
-     "S3Bucket": "cdk-hnb659fds-assets-672102091726-us-west-2",
-     "S3Key": "ee75e4bb1dae8c3c7e5deb915e24ebd16d97e2ad9585187895e301c3574f4e8c.zip"
+     "S3Bucket": "cdk-hnb659fds-assets-355464123969-us-east-1",
+     "S3Key": "a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e.zip"
     },
     "Role": {
      "Fn::GetAtt": [
@@ -450,11 +436,43 @@
     },
     "Environment": {
      "Variables": {
-      "region": "us-west-2",
-      "availabilityZones": "[\"us-west-2a\",\"us-west-2b\",\"us-west-2c\",\"us-west-2d\"]",
-      "databaseName": "apps",
+      "vpcId": {
+       "Ref": "awssdkapppublicrdsvpc9988057D"
+      },
+      "vpcArn": {
+       "Fn::Join": [
+        "",
+        [
+         "arn:",
+         {
+          "Ref": "AWS::Partition"
+         },
+         ":ec2:us-east-1:355464123969:vpc/",
+         {
+          "Ref": "awssdkapppublicrdsvpc9988057D"
+         }
+        ]
+       ]
+      },
       "userName": "admin",
+      "databaseName": "apps",
       "password": "admin123456",
+      "rdsInstaceId": "aws-sdk-app-public-db",
+      "region": "us-east-1",
+      "rdsInstanceName": "aws-sdk-app-public-db-rds",
+      "securityGroupId": {
+       "Fn::GetAtt": [
+        "awssdkapppublicrdssg9EDCDDAA",
+        "GroupId"
+       ]
+      },
+      "securityGroupVpcId": {
+       "Fn::GetAtt": [
+        "awssdkapppublicrdssg9EDCDDAA",
+        "VpcId"
+       ]
+      },
+      "availabilityZones": "[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\",\"us-east-1d\",\"us-east-1e\",\"us-east-1f\"]",
       "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
      }
     },
@@ -470,7 +488,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "aws-sdk-app/aws-sdk-app-public-lambda/Resource",
-    "aws:asset:path": "/Users/bsingh/git-repos/aws-sdk-rds-s3-lambda",
+    "aws:asset:path": "asset.a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e",
     "aws:asset:is-bundled": true,
     "aws:asset:property": "Code"
    }
@@ -510,7 +528,7 @@
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/2VRTW/CMAz9LdyDt4K0Ox8a4rJVZeOK3NRjKW2CYmcIVf3vSz+ASTu956dn+zmZwTyBZIIXnuriNK1MDs1OUJ9UlA4N6Rk0+7NWqy+7T1cqDXll9C7klqTTHixzQegD84oe+kNbMDttUIyzd3NHtlbIR+cGhS54HdeM1UJikO+arKgd6eCNXDfehXO/4K/QKl8wNGsUzJFpa1nQalJDinvPevlPuFlbZbCGJnND/B5TF0/tIw2sVRXWeYEH6woqGd56eA1W92fx/IDMJAyLDmINy6BPJMsYaWyFJk67d9zIp6+6LSOk5GvDHPW2VRmxCz6e0s+MH3M09ti53oOcw/Dwo6VVXS4o+ekneYFkDs+Tko2Z+mDF1ATZgL8qGcqT8QEAAA=="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/01Qy27CMBD8Fu7OtiFS74BU1EsbhZYrcswWnIcdeddFKMq/105S0tPMjmZ3RruGLIV0JW+UqHOdNLqE/sBS1SJIpx7VGvpjp8Tu2xzznch92Wh18KVBjtrCCusZP2XZ4KIv2obIKi1ZW/MwR/JmGF1w7iXjTd7nmHnacChybdGwOKDyTvN976zvxoD/wiC0bKEv7BQ+Ym5D0fHgxAbRyLY8y5OxZ6wI3kd49UaNpSg7SSJkgk2EMMPWqxp5KwnnVejDtcfGH/lyTUyZIUfXaqKgD4MokKx3CsV4M7z1os0luj48d35622wZROwFFT39pC+QZvC8qkjrxHnDukUoJvwFkGdJ2a8BAAA="
    },
    "Metadata": {
     "aws:cdk:path": "aws-sdk-app/CDKMetadata/Default"
@@ -518,6 +536,44 @@
   }
  },
  "Outputs": {
+  "vpcArn": {
+   "Value": {
+    "Fn::Join": [
+     "",
+     [
+      "arn:",
+      {
+       "Ref": "AWS::Partition"
+      },
+      ":ec2:us-east-1:355464123969:vpc/",
+      {
+       "Ref": "awssdkapppublicrdsvpc9988057D"
+      }
+     ]
+    ]
+   }
+  },
+  "vpcId": {
+   "Value": {
+    "Ref": "awssdkapppublicrdsvpc9988057D"
+   }
+  },
+  "securityGroupId": {
+   "Value": {
+    "Fn::GetAtt": [
+     "awssdkapppublicrdssg9EDCDDAA",
+     "GroupId"
+    ]
+   }
+  },
+  "securityGroupVpcId": {
+   "Value": {
+    "Fn::GetAtt": [
+     "awssdkapppublicrdssg9EDCDDAA",
+     "VpcId"
+    ]
+   }
+  },
   "publicLambdaUrl": {
    "Value": {
     "Fn::GetAtt": [
