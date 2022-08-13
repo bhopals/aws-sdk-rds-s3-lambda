@@ -104,7 +104,7 @@ export class CdkStarterStack extends cdk.Stack {
     /**** CREATE SECURITY GROUP */
     // const securityGroup = this.createSecurityGroup(vpc);
 
-    /** OUTPUT VPC ARN */
+    /** OUTPUT VPC ARN Details*/
     // new CfnOutput(this, "vpcArn", {
     //   value: vpc.vpcArn,
     // });
