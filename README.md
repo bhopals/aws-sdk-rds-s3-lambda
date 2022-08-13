@@ -36,9 +36,7 @@ cdk deploy
 cdk destroy
 ```
 
-- Make sure to go to S3, and delete the bucket with name something that looks like(`cdk-*-us-west-2`)
-
-- Make sure to go to CloudFormation, and delete any Stack related (especially - `CDKToolkit`)
+### Stack Lambda Details
 
 Once STACK is deployed, you should see TWO Lambda. Both Lambda has Public URL so
 open the Lambda URL to trigger Create/Query request.
@@ -46,7 +44,7 @@ open the Lambda URL to trigger Create/Query request.
 - aws-sdk-s3-lambda (To Create and Query S3 )
 - aws-sdk-rds-lambda (To Create and Query RDS (MySql) Instances)
 
-#### Additional Steps once RDS instance is Created
+### Additional Steps once RDS instance is Created
 
 Note: This needs to be done once the STACK is DEPLOYED (If a RULE for TCP inbound is missing).
 
@@ -66,6 +64,10 @@ publicly accessible.
     - Source - custom
       0.0.0.0
   - SAVE the RULE
+
+### Testing
+
+- You can use Lambda TEST function to test the functionality of the Lambdas
 
 ### References
 
