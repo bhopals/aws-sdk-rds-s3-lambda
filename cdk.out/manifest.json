@@ -23,7 +23,7 @@
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-deploy-role-355464123969-us-east-1",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::355464123969:role/cdk-hnb659fds-cfn-exec-role-355464123969-us-east-1",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-355464123969-us-east-1/947d534264c37e3b95c7a30aca08d6c5f8d1f218b4dac2b282d32bd560aac9e8.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-355464123969-us-east-1/d86e65a63d4c53401082a7d834df40e37c1563908c94d3b37bcf69203829db90.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
@@ -147,22 +147,40 @@
             "data": "awssdkappprivatelambdaaccessroleDefaultPolicy03E07DEA"
           }
         ],
-        "/aws-sdk-app/aws-sdk-app-public-lambda/Resource": [
+        "/aws-sdk-app/aws-sdk-app-create-lambda/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "awssdkapppubliclambda7194AD34"
+            "data": "awssdkappcreatelambdaF1786253"
           }
         ],
-        "/aws-sdk-app/aws-sdk-app-public-lambda/FunctionUrl/Resource": [
+        "/aws-sdk-app/aws-sdk-app-create-lambda/FunctionUrl/Resource": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "awssdkapppubliclambdaFunctionUrl998C65E4"
+            "data": "awssdkappcreatelambdaFunctionUrl53B74D83"
           }
         ],
-        "/aws-sdk-app/aws-sdk-app-public-lambda/invoke-function-url": [
+        "/aws-sdk-app/aws-sdk-app-create-lambda/invoke-function-url": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "awssdkapppubliclambdainvokefunctionurl09BBF704"
+            "data": "awssdkappcreatelambdainvokefunctionurlE506A1CC"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-query-lambda/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkappquerylambda737C01F6"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-query-lambda/FunctionUrl/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkappquerylambdaFunctionUrlB2EC9E64"
+          }
+        ],
+        "/aws-sdk-app/aws-sdk-app-query-lambda/invoke-function-url": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "awssdkappquerylambdainvokefunctionurl1E968FD9"
           }
         ],
         "/aws-sdk-app/vpcArn": [
@@ -177,6 +195,12 @@
             "data": "vpcId"
           }
         ],
+        "/aws-sdk-app/vpc subnets": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "vpcsubnets"
+          }
+        ],
         "/aws-sdk-app/securityGroupId": [
           {
             "type": "aws:cdk:logicalId",
@@ -189,10 +213,16 @@
             "data": "securityGroupVpcId"
           }
         ],
-        "/aws-sdk-app/publicLambdaUrl": [
+        "/aws-sdk-app/createLambdaUrl": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "publicLambdaUrl"
+            "data": "createLambdaUrl"
+          }
+        ],
+        "/aws-sdk-app/queryLambdaUrl": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "queryLambdaUrl"
           }
         ],
         "/aws-sdk-app/CDKMetadata/Default": [

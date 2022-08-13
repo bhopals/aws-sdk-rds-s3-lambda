@@ -7,9 +7,11 @@ export const appName: string = "aws-sdk-app";
 export const FUN_LABEL: string = ":function:";
 export const ARN_LABEL: string = "arn:aws:lambda:";
 export const BASE_PATH: string = "/../src/lambda";
-export const PUBLIC_LAMBDA_URL: string = "publicLambdaUrl";
+export const CREATE_LAMBDA_URL: string = "createLambdaUrl";
+export const QUERY_LAMBDA_URL: string = "queryLambdaUrl";
 
-export const PUBLIC_LAMBDA_PATH: string = `${BASE_PATH}/index.ts`;
+export const CREATE_LAMBDA_PATH: string = `${BASE_PATH}/createLambda.ts`;
+export const QUERY_LAMBDA_PATH: string = `${BASE_PATH}/queryLambda.ts`;
 
 export enum LambdaRole {
   NAME = "private-lambda-access-role",
@@ -18,9 +20,8 @@ export enum LambdaRole {
 }
 
 export enum LambdaType {
-  PUBLIC_LAMBDA = "public-lambda",
-  PRIVATE_LAMBDA = "private-lambda",
-  LAMBDA_SERVER = "lambda-server",
+  CREATE_LAMBDA = "create-lambda",
+  QUERY_LAMBDA = "query-lambda",
 }
 
 /**** RDS Constants */

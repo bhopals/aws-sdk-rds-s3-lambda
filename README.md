@@ -40,9 +40,32 @@ cdk destroy
 
 - Make sure to go to CloudFormation, and delete any Stack related (especially - `CDKToolkit`)
 
-##### References
+Once STACK is deployed, you should see TWO Lambda. Both Lambda has Public URL so
+open the Lambda URL to trigger Create/Query request.
 
-### S3
+- aws-sdk-app-create-lambda (To Create S3 and MySql Instance)
+- aws-sdk-app-query-lambda (To Query S3 and MySql Instance - show all the bucket and db details)
+
+#### Additional Steps once RDS instance is Created
+
+One MySql Instance is up and Running, make sure you ADD an INBOUND Rule to make DATABASE
+publicly accessible.
+
+- STEPS to Create a rule`
+  - Go RDS console
+  - Under "Connectivity & Security Section", look for VPC security groups, You will find a hyperlink
+    for example - (sg-0ff6f254).
+  - Clicking on the link, will redirect you to Security Rules.
+  - Click on Inbound Rule ==> Edit Inbound Rules
+  - Add rules with a Below Settings.
+    - Type - All TCP
+    - Source - custom
+      0.0.0.0
+  - SAVE the RULE
+
+### References
+
+#### S3
 
 - S3 (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html)
 
@@ -50,7 +73,7 @@ cdk destroy
 
 - S3 Create Bucket (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/createbucketcommand.html)
 
-### RDS
+#### RDS
 
 - RDS (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/index.html)
 

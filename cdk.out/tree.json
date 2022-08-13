@@ -562,7 +562,7 @@
                                       {
                                         "Ref": "AWS::AccountId"
                                       },
-                                      ":function:aws-sdk-app-public-lambda"
+                                      ":function:aws-sdk-app-create-lambda"
                                     ]
                                   ]
                                 },
@@ -578,7 +578,7 @@
                                       {
                                         "Ref": "AWS::AccountId"
                                       },
-                                      ":function:aws-sdk-app-private-lambda"
+                                      ":function:aws-sdk-app-query-lambda"
                                     ]
                                   ]
                                 }
@@ -612,17 +612,17 @@
               "version": "2.31.1"
             }
           },
-          "aws-sdk-app-public-lambda": {
-            "id": "aws-sdk-app-public-lambda",
-            "path": "aws-sdk-app/aws-sdk-app-public-lambda",
+          "aws-sdk-app-create-lambda": {
+            "id": "aws-sdk-app-create-lambda",
+            "path": "aws-sdk-app/aws-sdk-app-create-lambda",
             "children": {
               "Code": {
                 "id": "Code",
-                "path": "aws-sdk-app/aws-sdk-app-public-lambda/Code",
+                "path": "aws-sdk-app/aws-sdk-app-create-lambda/Code",
                 "children": {
                   "Stage": {
                     "id": "Stage",
-                    "path": "aws-sdk-app/aws-sdk-app-public-lambda/Code/Stage",
+                    "path": "aws-sdk-app/aws-sdk-app-create-lambda/Code/Stage",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.AssetStaging",
                       "version": "2.31.1"
@@ -630,7 +630,7 @@
                   },
                   "AssetBucket": {
                     "id": "AssetBucket",
-                    "path": "aws-sdk-app/aws-sdk-app-public-lambda/Code/AssetBucket",
+                    "path": "aws-sdk-app/aws-sdk-app-create-lambda/Code/AssetBucket",
                     "constructInfo": {
                       "fqn": "aws-cdk-lib.aws_s3.BucketBase",
                       "version": "2.31.1"
@@ -644,13 +644,13 @@
               },
               "Resource": {
                 "id": "Resource",
-                "path": "aws-sdk-app/aws-sdk-app-public-lambda/Resource",
+                "path": "aws-sdk-app/aws-sdk-app-create-lambda/Resource",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
                   "aws:cdk:cloudformation:props": {
                     "code": {
                       "s3Bucket": "cdk-hnb659fds-assets-355464123969-us-east-1",
-                      "s3Key": "a8a356d0c9e252417d59877735dd8332b7926800c1e8696290e3243a8670f35e.zip"
+                      "s3Key": "e7c1a9f12a5d2d2f435b2df06e2a9de37cc25bdd92a9786e11fe968f2fd56169.zip"
                     },
                     "role": {
                       "Fn::GetAtt": [
@@ -700,7 +700,7 @@
                         "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
                       }
                     },
-                    "functionName": "aws-sdk-app-public-lambda",
+                    "functionName": "aws-sdk-app-create-lambda",
                     "handler": "index.main",
                     "memorySize": 1024,
                     "runtime": "nodejs16.x",
@@ -714,18 +714,18 @@
               },
               "FunctionUrl": {
                 "id": "FunctionUrl",
-                "path": "aws-sdk-app/aws-sdk-app-public-lambda/FunctionUrl",
+                "path": "aws-sdk-app/aws-sdk-app-create-lambda/FunctionUrl",
                 "children": {
                   "Resource": {
                     "id": "Resource",
-                    "path": "aws-sdk-app/aws-sdk-app-public-lambda/FunctionUrl/Resource",
+                    "path": "aws-sdk-app/aws-sdk-app-create-lambda/FunctionUrl/Resource",
                     "attributes": {
                       "aws:cdk:cloudformation:type": "AWS::Lambda::Url",
                       "aws:cdk:cloudformation:props": {
                         "authType": "NONE",
                         "targetFunctionArn": {
                           "Fn::GetAtt": [
-                            "awssdkapppubliclambda7194AD34",
+                            "awssdkappcreatelambdaF1786253",
                             "Arn"
                           ]
                         }
@@ -744,14 +744,172 @@
               },
               "invoke-function-url": {
                 "id": "invoke-function-url",
-                "path": "aws-sdk-app/aws-sdk-app-public-lambda/invoke-function-url",
+                "path": "aws-sdk-app/aws-sdk-app-create-lambda/invoke-function-url",
                 "attributes": {
                   "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
                   "aws:cdk:cloudformation:props": {
                     "action": "lambda:InvokeFunctionUrl",
                     "functionName": {
                       "Fn::GetAtt": [
-                        "awssdkapppubliclambda7194AD34",
+                        "awssdkappcreatelambdaF1786253",
+                        "Arn"
+                      ]
+                    },
+                    "principal": "*",
+                    "functionUrlAuthType": "NONE"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnPermission",
+                  "version": "2.31.1"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.aws_lambda_nodejs.NodejsFunction",
+              "version": "2.31.1"
+            }
+          },
+          "aws-sdk-app-query-lambda": {
+            "id": "aws-sdk-app-query-lambda",
+            "path": "aws-sdk-app/aws-sdk-app-query-lambda",
+            "children": {
+              "Code": {
+                "id": "Code",
+                "path": "aws-sdk-app/aws-sdk-app-query-lambda/Code",
+                "children": {
+                  "Stage": {
+                    "id": "Stage",
+                    "path": "aws-sdk-app/aws-sdk-app-query-lambda/Code/Stage",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.AssetStaging",
+                      "version": "2.31.1"
+                    }
+                  },
+                  "AssetBucket": {
+                    "id": "AssetBucket",
+                    "path": "aws-sdk-app/aws-sdk-app-query-lambda/Code/AssetBucket",
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_s3.BucketBase",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_s3_assets.Asset",
+                  "version": "2.31.1"
+                }
+              },
+              "Resource": {
+                "id": "Resource",
+                "path": "aws-sdk-app/aws-sdk-app-query-lambda/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Function",
+                  "aws:cdk:cloudformation:props": {
+                    "code": {
+                      "s3Bucket": "cdk-hnb659fds-assets-355464123969-us-east-1",
+                      "s3Key": "d668c59875c8ce65a186616f32aebb8244a90dc3050e1d49f5e80ea04b6ad14f.zip"
+                    },
+                    "role": {
+                      "Fn::GetAtt": [
+                        "awssdkappprivatelambdaaccessroleF47771E5",
+                        "Arn"
+                      ]
+                    },
+                    "environment": {
+                      "variables": {
+                        "vpcId": {
+                          "Ref": "awssdkapppublicrdsvpc9988057D"
+                        },
+                        "vpcArn": {
+                          "Fn::Join": [
+                            "",
+                            [
+                              "arn:",
+                              {
+                                "Ref": "AWS::Partition"
+                              },
+                              ":ec2:us-east-1:355464123969:vpc/",
+                              {
+                                "Ref": "awssdkapppublicrdsvpc9988057D"
+                              }
+                            ]
+                          ]
+                        },
+                        "userName": "admin",
+                        "databaseName": "apps",
+                        "password": "admin123456",
+                        "rdsInstaceId": "aws-sdk-app-public-db",
+                        "region": "us-east-1",
+                        "rdsInstanceName": "aws-sdk-app-public-db-rds",
+                        "securityGroupId": {
+                          "Fn::GetAtt": [
+                            "awssdkapppublicrdssg9EDCDDAA",
+                            "GroupId"
+                          ]
+                        },
+                        "securityGroupVpcId": {
+                          "Fn::GetAtt": [
+                            "awssdkapppublicrdssg9EDCDDAA",
+                            "VpcId"
+                          ]
+                        },
+                        "availabilityZones": "[\"us-east-1a\",\"us-east-1b\",\"us-east-1c\",\"us-east-1d\",\"us-east-1e\",\"us-east-1f\"]",
+                        "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+                      }
+                    },
+                    "functionName": "aws-sdk-app-query-lambda",
+                    "handler": "index.main",
+                    "memorySize": 1024,
+                    "runtime": "nodejs16.x",
+                    "timeout": 500
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.CfnFunction",
+                  "version": "2.31.1"
+                }
+              },
+              "FunctionUrl": {
+                "id": "FunctionUrl",
+                "path": "aws-sdk-app/aws-sdk-app-query-lambda/FunctionUrl",
+                "children": {
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "aws-sdk-app/aws-sdk-app-query-lambda/FunctionUrl/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::Lambda::Url",
+                      "aws:cdk:cloudformation:props": {
+                        "authType": "NONE",
+                        "targetFunctionArn": {
+                          "Fn::GetAtt": [
+                            "awssdkappquerylambda737C01F6",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "aws-cdk-lib.aws_lambda.CfnUrl",
+                      "version": "2.31.1"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "aws-cdk-lib.aws_lambda.FunctionUrl",
+                  "version": "2.31.1"
+                }
+              },
+              "invoke-function-url": {
+                "id": "invoke-function-url",
+                "path": "aws-sdk-app/aws-sdk-app-query-lambda/invoke-function-url",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::Lambda::Permission",
+                  "aws:cdk:cloudformation:props": {
+                    "action": "lambda:InvokeFunctionUrl",
+                    "functionName": {
+                      "Fn::GetAtt": [
+                        "awssdkappquerylambda737C01F6",
                         "Arn"
                       ]
                     },
@@ -786,6 +944,14 @@
               "version": "2.31.1"
             }
           },
+          "vpc subnets": {
+            "id": "vpc subnets",
+            "path": "aws-sdk-app/vpc subnets",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.31.1"
+            }
+          },
           "securityGroupId": {
             "id": "securityGroupId",
             "path": "aws-sdk-app/securityGroupId",
@@ -802,9 +968,17 @@
               "version": "2.31.1"
             }
           },
-          "publicLambdaUrl": {
-            "id": "publicLambdaUrl",
-            "path": "aws-sdk-app/publicLambdaUrl",
+          "createLambdaUrl": {
+            "id": "createLambdaUrl",
+            "path": "aws-sdk-app/createLambdaUrl",
+            "constructInfo": {
+              "fqn": "aws-cdk-lib.CfnOutput",
+              "version": "2.31.1"
+            }
+          },
+          "queryLambdaUrl": {
+            "id": "queryLambdaUrl",
+            "path": "aws-sdk-app/queryLambdaUrl",
             "constructInfo": {
               "fqn": "aws-cdk-lib.CfnOutput",
               "version": "2.31.1"

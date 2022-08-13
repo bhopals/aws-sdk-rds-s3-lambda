@@ -16,8 +16,8 @@ import {
   handler,
   appName,
   AWS_SDK,
-  PUBLIC_LAMBDA_URL,
-  PUBLIC_LAMBDA_PATH,
+  CREATE_LAMBDA_PATH,
+  QUERY_LAMBDA_PATH,
   FUN_LABEL,
   ARN_LABEL,
   RDS_DB_NAME,
@@ -31,6 +31,8 @@ import {
   RDS_SECURITY_GROUP_ID,
   RDS_SECURITY_GROUP_NAME,
   RDS_SUBNET_NAME,
+  CREATE_LAMBDA_URL,
+  QUERY_LAMBDA_URL,
 } from "./stackConfiguration";
 import {
   Vpc,
@@ -65,11 +67,31 @@ export class CdkStarterStack extends cdk.Stack {
     /*** LAMBDA ROLE */
     const role = this.createLambdaRole();
 
-    /*** PUBLIC LAMBDA FUNCTION */
-    const publicLambda = this.createPublicLambda(role, securityGroup, vpc);
+    /*** CREATE LAMBDA FUNCTION */
+    const createLambda = this.createLambda(
+      role,
+      securityGroup,
+      vpc,
+      LambdaType.CREATE_LAMBDA,
+      CREATE_LAMBDA_PATH
+    );
 
-    /** Expose PUBLIC LAMBDA URL */
-    const fnUrl = publicLambda.addFunctionUrl({
+    /*** QUERY LAMBDA FUNCTION */
+    const queryLambda = this.createLambda(
+      role,
+      securityGroup,
+      vpc,
+      LambdaType.QUERY_LAMBDA,
+      QUERY_LAMBDA_PATH
+    );
+
+    /** Expose CREATE LAMBDA URL */
+    const clFnUrl = createLambda.addFunctionUrl({
+      authType: lambda.FunctionUrlAuthType.NONE,
+    });
+
+    /** Expose QUERY LAMBDA URL */
+    const qlFnUrl = queryLambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
 
@@ -83,6 +105,11 @@ export class CdkStarterStack extends cdk.Stack {
       value: vpc.vpcId,
     });
 
+    /** OUTPUT VPC ID */
+    new CfnOutput(this, "vpc subnets", {
+      value: vpc.publicSubnets.join(","),
+    });
+
     /** OUTPUT Security Group ID */
     new CfnOutput(this, "securityGroupId", {
       value: securityGroup.securityGroupId,
@@ -93,9 +120,14 @@ export class CdkStarterStack extends cdk.Stack {
       value: securityGroup.securityGroupVpcId,
     });
 
-    /** OUTPUT PUBLIC LAMBDA URL */
-    new CfnOutput(this, PUBLIC_LAMBDA_URL, {
-      value: fnUrl.url,
+    /** OUTPUT CREATE LAMBDA URL */
+    new CfnOutput(this, CREATE_LAMBDA_URL, {
+      value: qlFnUrl.url,
+    });
+
+    /** OUTPUT QUERY LAMBDA URL */
+    new CfnOutput(this, QUERY_LAMBDA_URL, {
+      value: qlFnUrl.url,
     });
   }
 
@@ -165,15 +197,21 @@ export class CdkStarterStack extends cdk.Stack {
     return fnSg;
   }
 
-  private createPublicLambda(role: Role, fnSg: SecurityGroup, vpc: Vpc) {
-    return new NodejsFunction(this, `${appName}-${LambdaType.PUBLIC_LAMBDA}`, {
+  private createLambda(
+    role: Role,
+    fnSg: SecurityGroup,
+    vpc: Vpc,
+    name: string,
+    lambdaPath: string
+  ) {
+    return new NodejsFunction(this, `${appName}-${name}`, {
       role,
       handler,
       memorySize: 1024,
       timeout: cdk.Duration.seconds(500),
       runtime: lambda.Runtime.NODEJS_16_X,
-      entry: path.join(__dirname, PUBLIC_LAMBDA_PATH),
-      functionName: `${appName}-${LambdaType.PUBLIC_LAMBDA}`,
+      entry: path.join(__dirname, lambdaPath),
+      functionName: `${appName}-${name}`,
       bundling: {
         minify: false,
         externalModules: [AWS_SDK],
@@ -202,8 +240,8 @@ export class CdkStarterStack extends cdk.Stack {
     role.addToPolicy(
       new PolicyStatement({
         resources: [
-          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.PUBLIC_LAMBDA}`,
-          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.PRIVATE_LAMBDA}`,
+          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.CREATE_LAMBDA}`,
+          `${ARN_LABEL}${Aws.REGION}:${Aws.ACCOUNT_ID}${FUN_LABEL}${appName}-${LambdaType.QUERY_LAMBDA}`,
         ],
         actions: [LambdaRole.ACTIONS],
       })
