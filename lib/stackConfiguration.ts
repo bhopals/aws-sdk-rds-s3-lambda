@@ -48,3 +48,4 @@ export const S3_GET_OBJECT = "s3:GetObject";
 export const S3_PUT_OBJECT = "s3:PutObject";
 export const S3_DELETE_OBJECT = "s3:DeleteObject";
 export const S3_PUBLIC_BUCKET = "s3:Public";
+export const S3_PUBLIC_PRIVATE = "s3:Private";
