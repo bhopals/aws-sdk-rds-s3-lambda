@@ -51,7 +51,7 @@ open the Lambda URL to trigger Create/Query request.
 
 Note: This needs to be done once the STACK is DEPLOYED (If a RULE for TCP inbound is missing).
 
-One MySql Instance is up and Running, make sure you ADD an INBOUND Rule to make DATABASE
+Oncs MySql Instance is up and Running, make sure you ADD an INBOUND Rule to make DATABASE
 publicly accessible.
 
 - STEPS to Create a rule`
@@ -76,7 +76,7 @@ publicly accessible.
 
 #### S3
 
-- S3 (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html)
+- Home (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/index.html)
 
 - S3 LIST Bucket (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/listbucketscommand.html)
 
@@ -84,9 +84,10 @@ publicly accessible.
 
 #### RDS
 
-- RDS (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/index.html)
+- Home (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/index.html)
 
 - RDS List Instances (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/rds.html#describedbinstances)
 
 - RDS Create Instance(https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/createdbinstancecommand.html)
+
 - RDS Create Instance PARAMS (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/interfaces/createdbinstancecommandinput.html)
