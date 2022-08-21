@@ -98,7 +98,7 @@ export class CdkStarterStack extends cdk.Stack {
       value: rdsFnUrl.url,
     });
 
-    // DISABLE VPC CREATION
+    // DISABLE VPC CREATION and SG Creation
     /**** CREATE VPC */
     // const vpc = this.createVPC();
 
