@@ -13,7 +13,7 @@ export async function main(
 ): Promise<APIGatewayProxyResultV2> {
   let response = {} as any;
   try {
-    /*** 1. S3 Create Client */
+    /*** 1. S3 Create Lambda Client */
     const s3Client = new S3Client({});
 
     /*** 2. S3 Create a Bucket */
