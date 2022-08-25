@@ -30,6 +30,7 @@ export async function main(
       new CreateDBInstanceCommand({
         Engine: "mysql",
         AllocatedStorage: 21,
+        //MaxAllocatedStorage: 1000, // To enable autoscaling
         EngineVersion: "8.0.28",
         PubliclyAccessible: true,
         DBInstanceClass: "db.t2.micro",
