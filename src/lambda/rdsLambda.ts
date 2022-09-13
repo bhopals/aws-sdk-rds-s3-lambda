@@ -29,7 +29,7 @@ export async function main(
     const rdsCreateResponse = await rdsClient.send(
       new CreateDBInstanceCommand({
         Engine: "mysql",
-        AllocatedStorage: 21,
+        AllocatedStorage: 20,
         //MaxAllocatedStorage: 1000, // To enable autoscaling
         EngineVersion: "8.0.28",
         PubliclyAccessible: true,
