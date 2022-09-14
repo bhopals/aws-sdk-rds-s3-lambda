@@ -42,7 +42,7 @@ export async function main(
       })
     );
 
-    /*** 3. RDS List All Instances */
+    /*** 3. RDS List All Instances details*/
     const rdsListResponse = await rdsClient.send(
       new DescribeDBInstancesCommand({})
     );
