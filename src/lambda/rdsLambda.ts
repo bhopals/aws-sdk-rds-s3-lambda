@@ -55,7 +55,7 @@ export async function main(
       body: JSON.stringify({
         LENGTH: rdsList.length,
         rdsList,
-        newRdsInstance: `Database instance(${newRdsInstanceId}) creation is triggered. Please check after 5-10 mins.`,
+        newRdsInstance: `Database instance(${newRdsInstanceId}) creation is triggered. Please check after 5-8 mins.`,
         metadata: {
           rdsListResponse,
           rdsCreateResponse,
