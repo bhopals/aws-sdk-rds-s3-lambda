@@ -88,7 +88,7 @@ export class CdkStarterStack extends cdk.Stack {
       RDS_LAMBDA_PATH
     );
 
-    /** RDS - Expose LAMBDA URL */
+    /** RDS - Expose LAMBDA URL to publicly accessible */
     const rdsFnUrl = rdsLambda.addFunctionUrl({
       authType: lambda.FunctionUrlAuthType.NONE,
     });
