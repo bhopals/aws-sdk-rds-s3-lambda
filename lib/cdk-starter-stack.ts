@@ -125,7 +125,7 @@ export class CdkStarterStack extends cdk.Stack {
     //   value: securityGroup.securityGroupId,
     // });
 
-    /** OUTPUT Security Group VPC ID */
+    /** OUTPUT Security Group VPC ID in the ACCOUNT */
     // new CfnOutput(this, "securityGroupVpcId", {
     //   value: securityGroup.securityGroupVpcId,
     // });
