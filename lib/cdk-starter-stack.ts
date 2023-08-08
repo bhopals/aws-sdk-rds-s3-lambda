@@ -157,6 +157,7 @@ export class CdkStarterStack extends cdk.Stack {
   }
 
   private createLambdaRole() {
+    /** Create a ROLE */
     const role = new Role(this, `${appName}-${LambdaRole.NAME}`, {
       assumedBy: new ServicePrincipal(LambdaRole.SERVICE_PRINCIPAL),
     });
