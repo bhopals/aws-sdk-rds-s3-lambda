@@ -16,7 +16,7 @@ export async function main(
     /*** 1. S3 Create Lambda Client */
     const s3Client = new S3Client({});
 
-    /*** 2. S3 Create a Bucket */
+    /*** 2. S3 Create a Bucket that should store OBJECT */
     const newS3Bucket = `${appName}-${S3_BUCKET_NAME}-${Date.now()}`;
     const s3CreateResponse = await s3Client.send(
       new CreateBucketCommand({
