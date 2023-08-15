@@ -52,6 +52,6 @@ export async function main(
     };
   }
 
-  console.log(response);
+  console.log("S3 Lambda response:", response);
   return response;
 }
