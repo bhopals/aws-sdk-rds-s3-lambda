@@ -115,7 +115,7 @@ export class CdkStarterStack extends cdk.Stack {
     //   value: vpc.vpcId,
     // });
 
-    /** OUTPUT VPC ID - Specific ID  */
+    /** OUTPUT VPC ID - Specific ID to add VPC */
     // new CfnOutput(this, "vpc subnets", {
     //   value: vpc.publicSubnets.join(","),
     // });
