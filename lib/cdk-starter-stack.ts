@@ -120,7 +120,7 @@ export class CdkStarterStack extends cdk.Stack {
     //   value: vpc.publicSubnets.join(","),
     // });
 
-    /** OUTPUT Security Group ID - Specific to the security group - Per REGION*/
+    /** OUTPUT Security Group ID - Specific to the security group - Per REGION / Account*/
     // new CfnOutput(this, "securityGroupId", {
     //   value: securityGroup.securityGroupId,
     // });
