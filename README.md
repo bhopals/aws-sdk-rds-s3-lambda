@@ -82,7 +82,7 @@ publicly accessible.
 
 - S3 Create Bucket (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/classes/createbucketcommand.html)
 
-#### RDS
+#### RDS Documentation
 
 RDS Documentation:
 
