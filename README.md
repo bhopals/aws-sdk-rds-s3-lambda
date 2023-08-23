@@ -86,9 +86,9 @@ publicly accessible.
 
 RDS Documentation:
 
-- RDS Home (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/index.html)
+- RDS - Home (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/index.html)
 
-- RDS List Instances (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/rds.html#describedbinstances)
+- RDS - To List Instances (https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/rds.html#describedbinstances)
 
 - RDS Create Instance(https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-rds/classes/createdbinstancecommand.html)
 
