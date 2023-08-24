@@ -41,7 +41,7 @@ export async function main(
           s3CreateResponse,
         },
       }),
-      statusCode: 200,
+      statusCode: 201,
     };
   } catch (err) {
     response = {
