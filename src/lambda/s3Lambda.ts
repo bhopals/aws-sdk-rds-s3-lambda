@@ -24,7 +24,7 @@ export async function main(
       })
     );
 
-    /*** 3. S3 List All Buckets from the account's consumers */
+    /*** 3. S3 List All Buckets from the account's consumers - LS */
     let s3ListResponse = await s3Client.send(new ListBucketsCommand({}));
     const s3List =
       (s3ListResponse &&
